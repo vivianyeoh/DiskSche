@@ -52,7 +52,7 @@ public class LineGrpController {
 		initializeCylinderReqField();
 		initializeComboBox();
 
-		xAxis.setLabel("No of Request");
+		xAxis.setLabel("No of Cylinder");
 	}
 
 	public void initializeCylinderReqField() {
