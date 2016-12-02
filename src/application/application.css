@@ -1,0 +1,28 @@
+
+
+.chart-plot-background {
+    -fx-background-color: #EEEEEE;
+     -fx-stroke: transparent;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #FFFFFF;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0.0;
+}
+
+ 
+AnchorPane, SplitPane, VBox{
+	 -fx-background-color: #FFFFFF;
+}
+
+JFXButton,JFXTextField, Label, JFXComboBox{
+	 -fx-font: 15.0px Calibri;
+}
