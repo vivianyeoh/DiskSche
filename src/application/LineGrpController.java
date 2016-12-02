@@ -52,7 +52,8 @@ public class LineGrpController {
 		initializeCylinderReqField();
 		initializeComboBox();
 
-		xAxis.setLabel("No of Cylinder");
+		yAxis.setLabel("Request Number");
+		xAxis.setLabel("Movement");
 	}
 
 	public void initializeCylinderReqField() {
@@ -175,9 +176,19 @@ public class LineGrpController {
 			createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
 			series.setName(diskSchCombo.getValue().toString());
-			for (int i = 0; i < num; i++) {
-				series.getData().add(new XYChart.Data(i, reqList.get(i)));
-			}
+//			for (int i = 0; i < num; i++) {
+//				series.getData().add(new XYChart.Data(i, reqList.get(i)));
+//			}
+			series.getData().add(new XYChart.Data( 1,50));
+			series.getData().add(new XYChart.Data(2, 5));
+			series.getData().add(new XYChart.Data(3, 119));
+			series.getData().add(new XYChart.Data(4, 119));
+			series.getData().add(new XYChart.Data(5, 42));
+			series.getData().add(new XYChart.Data(6, 167));
+			series.getData().add(new XYChart.Data(7, 5));
+			series.getData().add(new XYChart.Data(8, 57));
+			series.getData().add(new XYChart.Data(9, 52));
+			series.getData().add(new XYChart.Data(10,75));
 			lineGrp.getData().add(series);
 		}
 	}
@@ -224,7 +235,6 @@ public class LineGrpController {
 		Random rand = new Random();
 		for (int i = 0; i < numOfReq; i++) {
 			int randomNum = rand.nextInt(maxValue + 1);
-			System.out.println("randomNum" + randomNum);
 			jtfReq[i].setText(randomNum + "");
 		}
 	}
