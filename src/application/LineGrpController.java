@@ -63,16 +63,16 @@ public class LineGrpController {
 			clearReqList();
 
 			isFilledA = validateCylFields(numOfRequest, newValue);
-			if (!newValue.matches("[0-9]+")) {
-				initializeFields();
-			} else {
+			if (isFilledA && isFilledC) {
 				initializeReqList(numOfRequest.getText());
+				btnRad.setDisable(false);
+			}else{
+				btnRad.setDisable(true);
 			}
-
 			if (isFilledA && isFilledB && isFilledC) {
-				enableSomeButtons(false);
+				btnIllustr.setDisable(false);
 			} else {
-				enableSomeButtons(true);
+				btnIllustr.setDisable(true);
 			}
 
 		});
@@ -80,18 +80,26 @@ public class LineGrpController {
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
 			isFilledB = validateCylFields(headStart, newValue);
 			if (isFilledA && isFilledB && isFilledC) {
-				enableSomeButtons(false);
+				btnIllustr.setDisable(false);
 			} else {
-				enableSomeButtons(true);
+				btnIllustr.setDisable(true);
 			}
 		});
 
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
+			clearGraph();
+			clearReqList();
 			isFilledC = validateCylFields(maxCyl, newValue);
+			if (isFilledA && isFilledC) {
+				initializeReqList(numOfRequest.getText());
+				btnRad.setDisable(false);
+			}else{
+				btnRad.setDisable(true);
+			}
 			if (isFilledA && isFilledB && isFilledC) {
-				enableSomeButtons(false);
+				btnIllustr.setDisable(false);
 			} else {
-				enableSomeButtons(true);
+				btnIllustr.setDisable(true);
 			}
 		});
 
@@ -125,13 +133,20 @@ public class LineGrpController {
 				jtfReq[i] = new JFXTextField();
 				jtfReq[i].setPromptText("Req: " + (i + 1));
 				jtfReq[i].setLabelFloat(true);
-
+				int j = i;
 				jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
-
-					if (isFilledA && isFilledB && isFilledC) {
-						btnIllustr.setDisable(false);
-					} else {
-						btnIllustr.setDisable(true);
+					boolean val = validateCylFields(jtfReq[j], newValue);
+					if (val) {
+						int fieldValue = (!jtfReq[j].getText().trim().equals("")
+								? Integer.parseInt(jtfReq[j].getText().trim()) : 0);
+						int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
+								: 0);
+						if (fieldValue > maxValue) {
+							jtfReq[j].setText("");
+							jtfReq[j].setEffect(drawBorder());
+							jtfReq[j].requestFocus();
+							jtfReq[j].setPromptText("Req no. more than max number!");
+						}
 					}
 
 				});
@@ -150,15 +165,11 @@ public class LineGrpController {
 	}
 
 	public void initializeFields() {
-		enableSomeButtons(true);
+		btnIllustr.setDisable(true);
+		btnRad.setDisable(true);
 		fldHeadMove.setDisable(true);
 	}
 
-	public void enableSomeButtons(boolean boo) {
-		btnIllustr.setDisable(boo);
-		btnRad.setDisable(boo);
-
-	}
 
 	public void createFullReqList(int numOfReq) {
 		reqList = new ArrayList<Integer>();
@@ -176,19 +187,19 @@ public class LineGrpController {
 			createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
 			series.setName(diskSchCombo.getValue().toString());
-//			for (int i = 0; i < num; i++) {
-//				series.getData().add(new XYChart.Data(i, reqList.get(i)));
-//			}
-			series.getData().add(new XYChart.Data( 1,50));
-			series.getData().add(new XYChart.Data(2, 5));
-			series.getData().add(new XYChart.Data(3, 119));
-			series.getData().add(new XYChart.Data(4, 119));
-			series.getData().add(new XYChart.Data(5, 42));
-			series.getData().add(new XYChart.Data(6, 167));
-			series.getData().add(new XYChart.Data(7, 5));
-			series.getData().add(new XYChart.Data(8, 57));
-			series.getData().add(new XYChart.Data(9, 52));
-			series.getData().add(new XYChart.Data(10,75));
+			 for (int i = 0; i < num; i++) {
+			 series.getData().add(new XYChart.Data(i, reqList.get(i)));
+			 }
+//			series.getData().add(new XYChart.Data(1, 50));
+//			series.getData().add(new XYChart.Data(2, 5));
+//			series.getData().add(new XYChart.Data(3, 119));
+//			series.getData().add(new XYChart.Data(4, 119));
+//			series.getData().add(new XYChart.Data(5, 42));
+//			series.getData().add(new XYChart.Data(6, 167));
+//			series.getData().add(new XYChart.Data(7, 5));
+//			series.getData().add(new XYChart.Data(8, 57));
+//			series.getData().add(new XYChart.Data(9, 52));
+//			series.getData().add(new XYChart.Data(10, 75));
 			lineGrp.getData().add(series);
 		}
 	}

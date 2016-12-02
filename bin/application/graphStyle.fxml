@@ -26,7 +26,7 @@
 					<bottom>
 						<FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" prefHeight="49.0" prefWidth="686.0" rowValignment="TOP" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
 							<children>
-								<JFXTextField fx:id="fldHeadMove" alignment="CENTER" disable="true" editable="false" promptText="Total Head Movement" text="Total Head Movement:" />
+								<JFXTextField fx:id="fldHeadMove" alignment="CENTER" disable="true" editable="false" promptText="Total Head Movement" text="Total Head Movement" />
 							</children>
 							<padding>
 								<Insets right="15.0" />
@@ -60,7 +60,7 @@
       								</VBox>
 							</content>
 						</ScrollPane>
-						<JFXTextField fx:id="numOfRequest" labelFloat="true" layoutX="8.0" layoutY="33.0" maxWidth="252.0" minWidth="240.0" prefHeight="31.0" prefWidth="252.0" promptText="Number Of Request" />
+						<JFXTextField fx:id="numOfRequest" labelFloat="true" layoutX="8.0" layoutY="33.0" maxWidth="252.0" minWidth="240.0" prefHeight="31.0" prefWidth="252.0" promptText="Total Number Of Requests" />
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="10.0" layoutY="507.0" orientation="VERTICAL" prefHeight="169.0" prefWidth="252.0">
                      <children>
       						<JFXButton fx:id="btnIllustr" alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onAction="#submitReq" prefHeight="25.0" prefWidth="242.0" ripplerFill="#aea6a6" style="-fx-background-color: #3F51B5;" text="Illustrate Graph" textAlignment="CENTER" textFill="WHITE">
