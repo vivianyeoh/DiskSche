@@ -236,8 +236,6 @@ public class LineGrpController {
 			series.getData().add(new XYChart.Data(0, startValue));
 			for (int i = 1; i <= num; i++) {
 				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i - 1)));
-				// series.getData().add(new XYChart.Data(i, reqList.get(i)));
-
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 			lineGrp.getData().add(series);
