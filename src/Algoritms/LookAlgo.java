@@ -2,12 +2,12 @@ package Algoritms;
 
 import java.util.ArrayList;
 
-public class CLookAlgo implements ScheAlgorithm {
+public class LookAlgo implements ScheAlgorithm {
 
-	private ArrayList<Integer> reqList;
+	public ArrayList<Integer> reqList;
 	private int headStart;
-
-	public CLookAlgo(ArrayList<Integer> reqList, int headStart) {
+	
+	public LookAlgo(ArrayList<Integer> reqList, int headStart) {
 		this.reqList = reqList;
 		this.headStart = headStart;
 	}

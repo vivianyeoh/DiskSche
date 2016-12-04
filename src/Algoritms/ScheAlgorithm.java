@@ -6,5 +6,5 @@ public interface ScheAlgorithm {
 	
 	public ArrayList<Integer> returnArragedList();
 
-	public int returnHeadStart();
+	public int returnTtlHeadMovement();
 }
