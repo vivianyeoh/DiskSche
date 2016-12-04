@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LookAlgo implements ScheAlgorithm {
 
-	public ArrayList<Integer> reqList;
+	private ArrayList<Integer> reqList;
 	private int headStart;
 	
 	public LookAlgo(ArrayList<Integer> reqList, int headStart) {
