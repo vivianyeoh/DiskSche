@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface ScheAlgorithm {
 	
-	public ArrayList<Integer> returnArragedList();
+	public ArrayList<Integer> getArragedList();
 
-	public int returnTtlHeadMovement();
+	public int getTtlHeadMovement();
 }

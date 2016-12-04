@@ -26,7 +26,7 @@
 					<bottom>
 						<FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" prefHeight="49.0" prefWidth="686.0" rowValignment="TOP" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
 							<children>
-								<JFXTextField fx:id="fldHeadMove" alignment="CENTER" disable="true" editable="false" promptText="Total Head Movement" text="Total Head Movement" />
+								<JFXTextField fx:id="fldHeadMove" alignment="CENTER" disable="true" editable="false" promptText="Total Head Movement" />
 							</children>
 							<padding>
 								<Insets right="15.0" />

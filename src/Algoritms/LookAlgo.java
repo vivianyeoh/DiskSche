@@ -12,13 +12,13 @@ public class LookAlgo implements ScheAlgorithm {
 		this.headStart = headStart;
 	}
 
-	public ArrayList<Integer> returnArragedList() {
+	public ArrayList<Integer> getArragedList() {
 		ArrayList<Integer> toBeArraged = reqList;
 
 		return toBeArraged;
 	}
 
-	public int returnTtlHeadMovement() {
+	public int getTtlHeadMovement() {
 		int headStart = 0;
 		
 		return headStart;
