@@ -67,7 +67,7 @@ public class LineGrpController {
 		numOfRequest.textProperty().addListener((observable, oldValue, newValue) -> {
 			clearGraph();
 			sclReq.getChildren().clear();
-			isFilledA = validateCylFields(numOfRequest, newValue);
+			isFilledA = validateTextFields(numOfRequest, newValue);
 			if (isFilledA) {
 				numOfRequest.setPromptText("Total Number of Request");
 				int num = Integer.parseInt(newValue);
@@ -87,7 +87,7 @@ public class LineGrpController {
 		});
 
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
-			isFilledB = validateCylFields(headStart, newValue);
+			isFilledB = validateTextFields(headStart, newValue);
 			if (isFilledB) {
 				headStart.setPromptText("Number of Head Start");
 				if (isFilledA && isFilledC) {
@@ -101,7 +101,7 @@ public class LineGrpController {
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
 			clearGraph();
 			sclReq.getChildren().clear();
-			isFilledC = validateCylFields(maxCyl, newValue);
+			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
 				maxCyl.setPromptText("Maximum No of Cylinder");
 				if (isFilledA) {
@@ -123,7 +123,7 @@ public class LineGrpController {
 
 	}
 
-	public boolean validateCylFields(TextField txt, String newValue) {
+	public boolean validateTextFields(TextField txt, String newValue) {
 
 		if (!newValue.trim().matches("\\d*") || newValue.trim().equals("")) {		
 			txt.setPromptText("Insert a POSITIVE NUMBER please.");
@@ -150,7 +150,7 @@ public class LineGrpController {
 			jtfReq[i].setLabelFloat(true);
 			int j = i;
 			jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
-				boolean val = validateCylFields(jtfReq[j], newValue);
+				boolean val = validateTextFields(jtfReq[j], newValue);
 				if (val) {
 					int fieldValue = (!jtfReq[j].getText().trim().equals("")
 							? Integer.parseInt(jtfReq[j].getText().trim()) : 0);
