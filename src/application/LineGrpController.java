@@ -58,8 +58,8 @@ public class LineGrpController {
 		initializeCylinderReqField();
 		initializeComboBox();
 
-		yAxis.setLabel("Request Number");
-		xAxis.setLabel("Movement");
+		yAxis.setLabel("Cylinder");
+		xAxis.setLabel("Time Unit");
 	}
 
 	public void initializeCylinderReqField() {
