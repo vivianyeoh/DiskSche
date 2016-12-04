@@ -125,15 +125,15 @@ public class LineGrpController {
 
 	public boolean validateCylFields(TextField txt, String newValue) {
 
-		if (!newValue.trim().matches("\\d*") || newValue.trim().equals("")) {
-			txt.setText("");
-			txt.setEffect(drawBorder());
-			txt.requestFocus();
-			txt.setPromptText("Insert a NUMBER please.");
-		} else {
+		if (!newValue.trim().matches("\\d*") || newValue.trim().equals("")) {		
+			txt.setPromptText("Insert a POSITIVE NUMBER please.");
+		}else {
 			txt.setEffect(null);
 			return true;
 		}
+		txt.setText("");
+		txt.setEffect(drawBorder());
+		txt.requestFocus();
 		return false;
 	}
 
@@ -157,13 +157,15 @@ public class LineGrpController {
 					int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
 							: 0);
 					if (fieldValue > maxValue) {
-						jtfReq[j].setText("");
-						jtfReq[j].setEffect(drawBorder());
-						jtfReq[j].requestFocus();
+						
 						jtfReq[j].setPromptText("Req no. more than max number!");
-					} else {
+					}else{
 						jtfReq[j].setPromptText("Req: " + (j + 1));
+						return;
 					}
+					jtfReq[j].setText("");
+					jtfReq[j].setEffect(drawBorder());
+					jtfReq[j].requestFocus();
 				}
 
 			});
@@ -200,7 +202,7 @@ public class LineGrpController {
 
 		int startValue = (!headStart.getText().trim().equals("") ? Integer.parseInt(headStart.getText().trim()) : 0);
 		int num = (!numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0);
-		
+
 		if (num > 1) {
 			ArrayList<Integer> reqList = createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
@@ -245,10 +247,10 @@ public class LineGrpController {
 	public void clear() {
 		clearGraph();
 		sclReq.getChildren().clear();
-		numOfRequest.setText(0+"");
-		headStart.setText(0+"");
-		maxCyl.setText(0+"");
-		fldHeadMove.setText(0+"");
+		numOfRequest.setText(0 + "");
+		headStart.setText(0 + "");
+		maxCyl.setText(0 + "");
+		fldHeadMove.setText(0 + "");
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
