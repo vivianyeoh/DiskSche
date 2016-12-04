@@ -187,6 +187,12 @@ public class LineGrpController {
 			createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
 			series.setName(diskSchCombo.getValue().toString());
+			
+			
+			
+			
+			
+			
 			 for (int i = 0; i < num; i++) {
 			 series.getData().add(new XYChart.Data(i, reqList.get(i)));
 			 }
