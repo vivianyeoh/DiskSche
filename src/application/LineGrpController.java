@@ -245,10 +245,10 @@ public class LineGrpController {
 	public void clear() {
 		clearGraph();
 		sclReq.getChildren().clear();
-		numOfRequest.setText("");
-		headStart.setText("");
-		maxCyl.setText("");
-		fldHeadMove.setText("");
+		numOfRequest.setText(0+"");
+		headStart.setText(0+"");
+		maxCyl.setText(0+"");
+		fldHeadMove.setText(0+"");
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
