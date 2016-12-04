@@ -235,7 +235,10 @@ public class LineGrpController {
 				System.exit(0);
 			}
 
+			
+			//starting point is not added in arraylist that is going to pass to another class
 			series.getData().add(new XYChart.Data(0, startValue));
+			
 			for (int i = 1; i <= num; i++) {
 				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i - 1)));
 			}
