@@ -20,24 +20,20 @@ public class FCFS implements ScheAlgorithm {
 
 	public int getTtlHeadMovement() {
 		int total = 0;
-		ArrayList<Integer> distance=new ArrayList<Integer>();
-	
-	        
-	        for(int i=0;i< reqList.size() ;i++){
-	            if(reqList.get(i) > headStart){
-	                distance.add(reqList.get(i)-headStart);
-	            }
-	            else{
-	            	distance.add(headStart-reqList.get(i));
-	            }
-	            headStart=reqList.get(i);
-	        }
-	              
-	        for(int i=0;i< reqList.size();i++){
-	            System.out.println("The next request is: " +reqList.get(i)+"\tMoving Distance: " +distance.get(i));
-	            total=total+distance.get(i);
-	        }       
-	        System.out.println("The total disk movement is:"+ total);
+		ArrayList<Integer> distance = new ArrayList<Integer>();
+
+		for (int i = 0; i < reqList.size(); i++) {
+			if (reqList.get(i) > headStart) {
+				distance.add(reqList.get(i) - headStart);
+			} else {
+				distance.add(headStart - reqList.get(i));
+			}
+			headStart = reqList.get(i);
+		}
+
+		for (int i = 0; i < reqList.size(); i++) {
+			total = total + distance.get(i);
+		}
 		return total;
 	}
 }

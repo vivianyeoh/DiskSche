@@ -17,6 +17,7 @@ import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
 import Algoritms.ScheAlgorithm;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -65,47 +66,59 @@ public class LineGrpController {
 
 		numOfRequest.textProperty().addListener((observable, oldValue, newValue) -> {
 			clearGraph();
-			// clearReqList();
-
+			sclReq.getChildren().clear();
 			isFilledA = validateCylFields(numOfRequest, newValue);
-			if (isFilledA && isFilledC) {
-				initializeReqList(numOfRequest.getText());
-				btnRad.setDisable(false);
-			} else {
-				btnRad.setDisable(true);
-			}
-			if (isFilledA && isFilledB && isFilledC) {
-				btnIllustr.setDisable(false);
-			} else {
-				btnIllustr.setDisable(true);
-			}
+			if (isFilledA) {
+				numOfRequest.setPromptText("Total Number of Request");
+				int num = Integer.parseInt(newValue);
+				if (isFilledC) {
+					initializeReqList(num);
+					btnRad.setDisable(false);
 
+					if (isFilledB) {
+						btnIllustr.setDisable(false);
+					} else {
+						btnIllustr.setDisable(true);
+					}
+				} else {
+					btnRad.setDisable(true);
+				}
+			}
 		});
 
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
 			isFilledB = validateCylFields(headStart, newValue);
-			if (isFilledA && isFilledB && isFilledC) {
-				btnIllustr.setDisable(false);
-			} else {
-				btnIllustr.setDisable(true);
+			if (isFilledB) {
+				headStart.setPromptText("Number of Head Start");
+				if (isFilledA && isFilledC) {
+					btnIllustr.setDisable(false);
+				} else {
+					btnIllustr.setDisable(true);
+				}
 			}
 		});
 
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
 			clearGraph();
-			// clearReqList();
+			sclReq.getChildren().clear();
 			isFilledC = validateCylFields(maxCyl, newValue);
-			if (isFilledA && isFilledC) {
-				initializeReqList(numOfRequest.getText());
-				btnRad.setDisable(false);
-			} else {
-				btnRad.setDisable(true);
+			if (isFilledC) {
+				maxCyl.setPromptText("Maximum No of Cylinder");
+				if (isFilledA) {
+					int numOfReq = !numOfRequest.getText().trim().equals("")
+							? Integer.parseInt(numOfRequest.getText().trim()) : 0;
+					initializeReqList(numOfReq);
+					btnRad.setDisable(false);
+					if (isFilledB) {
+						btnIllustr.setDisable(false);
+					} else {
+						btnIllustr.setDisable(true);
+					}
+				} else {
+					btnRad.setDisable(true);
+				}
 			}
-			if (isFilledA && isFilledB && isFilledC) {
-				btnIllustr.setDisable(false);
-			} else {
-				btnIllustr.setDisable(true);
-			}
+
 		});
 
 	}
@@ -116,7 +129,7 @@ public class LineGrpController {
 			txt.setText("");
 			txt.setEffect(drawBorder());
 			txt.requestFocus();
-			txt.setPromptText("Insert a number please.");
+			txt.setPromptText("Insert a NUMBER please.");
 		} else {
 			txt.setEffect(null);
 			return true;
@@ -126,41 +139,37 @@ public class LineGrpController {
 
 	// When num of cylinder is different, VBox has to change the number of
 	// request text field it has
-	public void initializeReqList(String numOfCy) {
-		// clearReqList();
+	public void initializeReqList(int numOfCy) {
 
-		if (!numOfCy.equals("")) {
-			int num = Integer.parseInt(numOfCy);
-			jtfReq = new JFXTextField[num];
+		jtfReq = new JFXTextField[numOfCy];
 
-			for (int i = 0; i < num; i++) {
+		for (int i = 0; i < numOfCy; i++) {
 
-				jtfReq[i] = new JFXTextField();
-				jtfReq[i].setPromptText("Req: " + (i + 1));
-				jtfReq[i].setLabelFloat(true);
-				int j = i;
-				jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
-					boolean val = validateCylFields(jtfReq[j], newValue);
-					if (val) {
-						int fieldValue = (!jtfReq[j].getText().trim().equals("")
-								? Integer.parseInt(jtfReq[j].getText().trim()) : 0);
-						int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
-								: 0);
-						if (fieldValue > maxValue) {
-							jtfReq[j].setText("");
-							jtfReq[j].setEffect(drawBorder());
-							jtfReq[j].requestFocus();
-							jtfReq[j].setPromptText("Req no. more than max number!");
-						}else{
-							jtfReq[j].setPromptText("Req: " + (j + 1));
-						}
+			jtfReq[i] = new JFXTextField();
+			jtfReq[i].setPromptText("Req: " + (i + 1));
+			jtfReq[i].setLabelFloat(true);
+			int j = i;
+			jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
+				boolean val = validateCylFields(jtfReq[j], newValue);
+				if (val) {
+					int fieldValue = (!jtfReq[j].getText().trim().equals("")
+							? Integer.parseInt(jtfReq[j].getText().trim()) : 0);
+					int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
+							: 0);
+					if (fieldValue > maxValue) {
+						jtfReq[j].setText("");
+						jtfReq[j].setEffect(drawBorder());
+						jtfReq[j].requestFocus();
+						jtfReq[j].setPromptText("Req no. more than max number!");
+					} else {
+						jtfReq[j].setPromptText("Req: " + (j + 1));
 					}
+				}
 
-				});
+			});
 
-				jtfReq[i].setId("Req" + i);
-				sclReq.getChildren().add(jtfReq[i]);
-			}
+			jtfReq[i].setId("Req" + i);
+			sclReq.getChildren().add(jtfReq[i]);
 
 		}
 	}
@@ -174,7 +183,6 @@ public class LineGrpController {
 	public void initializeFields() {
 		btnIllustr.setDisable(true);
 		btnRad.setDisable(true);
-		fldHeadMove.setDisable(true);
 	}
 
 	public ArrayList<Integer> createFullReqList(int numOfReq) {
@@ -189,9 +197,10 @@ public class LineGrpController {
 
 	public void submitReq() {
 		clearGraph();
-		int maxValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
+
 		int startValue = (!headStart.getText().trim().equals("") ? Integer.parseInt(headStart.getText().trim()) : 0);
 		int num = (!numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0);
+		
 		if (num > 1) {
 			ArrayList<Integer> reqList = createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
@@ -223,32 +232,21 @@ public class LineGrpController {
 				LOGGER.log(Level.SEVERE, "ScheAlgorithm switch case");
 				System.exit(0);
 			}
-		
-			series.getData().add(new XYChart.Data(0, maxValue));
-			for (int i = 1; i < num; i++) {
-				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i-1)));
+
+			series.getData().add(new XYChart.Data(0, startValue));
+			for (int i = 1; i <= num; i++) {
+				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i - 1)));
 				// series.getData().add(new XYChart.Data(i, reqList.get(i)));
 
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
-
-			// series.getData().add(new XYChart.Data(1, 50));
-			// series.getData().add(new XYChart.Data(2, 5));
-			// series.getData().add(new XYChart.Data(3, 119));
-			// series.getData().add(new XYChart.Data(4, 119));
-			// series.getData().add(new XYChart.Data(5, 42));
-			// series.getData().add(new XYChart.Data(6, 167));
-			// series.getData().add(new XYChart.Data(7, 5));
-			// series.getData().add(new XYChart.Data(8, 57));
-			// series.getData().add(new XYChart.Data(9, 52));
-			// series.getData().add(new XYChart.Data(10, 75));
 			lineGrp.getData().add(series);
 		}
 	}
 
 	public void clear() {
 		clearGraph();
-		// clearReqList();
+		sclReq.getChildren().clear();
 		numOfRequest.setText("");
 		headStart.setText("");
 		maxCyl.setText("");
@@ -256,21 +254,10 @@ public class LineGrpController {
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
-	// public void clearReqList() {
-	// sclReq.getChildren().clear();
-	// if (reqList != null) {
-	// reqList.removeAll(reqList);
-	// reqList = null;
-	// }
-	// }
-
 	public void clearGraph() {
-		// int num = (!numOfRequest.getText().trim().equals("") ?
-		// Integer.parseInt(numOfRequest.getText().trim()) : 0);
-		// ArrayList<Integer> reqList = createFullReqList(num);
-		// if (reqList != null) {
+
 		lineGrp.getData().clear();
-		// }
+
 	}
 
 	public DropShadow drawBorder() {
@@ -285,12 +272,11 @@ public class LineGrpController {
 	}
 
 	public void setValues() {
-		// clearGraph();
 		int numOfReq = !numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0;
 		int maxValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
 		Random rand = new Random();
 		for (int i = 0; i < numOfReq; i++) {
-			int randomNum = rand.nextInt(maxValue + 1);
+			int randomNum = rand.nextInt((maxValue - 1) + 1) + 1;
 			jtfReq[i].setText(randomNum + "");
 		}
 	}
