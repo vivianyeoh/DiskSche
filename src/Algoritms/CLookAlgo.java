@@ -10,7 +10,7 @@ public class CLookAlgo implements ScheAlgorithm {
 		this.reqList = reqList;
 	}
 
-	public ArrayList<Integer> returnArrageList() {
+	public ArrayList<Integer> returnArragedList() {
 		ArrayList<Integer> toBeArraged = reqList;
 
 		return toBeArraged;
