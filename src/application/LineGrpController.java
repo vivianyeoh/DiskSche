@@ -11,11 +11,13 @@ import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
 import Algoritms.ScheAlgorithm;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
@@ -48,7 +50,7 @@ public class LineGrpController {
 	@FXML
 	private JFXButton btnRad;
 	@FXML
-	private JFXTextField fldHeadMove;
+	private JFXTextArea fldHeadMove;
 	private JFXTextField[] jtfReq;
 	public boolean isFilledA, isFilledB, isFilledC;
 	private final static Logger LOGGER = Logger.getLogger(LineGrpController.class.getName());
@@ -60,10 +62,18 @@ public class LineGrpController {
 
 		yAxis.setLabel("Cylinder");
 		xAxis.setLabel("Time Unit");
+		lineGrp.setCreateSymbols(true);
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				numOfRequest.requestFocus();
+			}
+		});
+
 	}
 
 	public void initializeCylinderReqField() {
-
 		numOfRequest.textProperty().addListener((observable, oldValue, newValue) -> {
 			clearGraph();
 			sclReq.getChildren().clear();
@@ -125,9 +135,9 @@ public class LineGrpController {
 
 	public boolean validateTextFields(TextField txt, String newValue) {
 
-		if (!newValue.trim().matches("\\d*") || newValue.trim().equals("")) {		
+		if (!newValue.trim().matches("\\d*") || newValue.trim().equals("")) {
 			txt.setPromptText("Insert a POSITIVE NUMBER please.");
-		}else {
+		} else {
 			txt.setEffect(null);
 			return true;
 		}
@@ -157,9 +167,9 @@ public class LineGrpController {
 					int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
 							: 0);
 					if (fieldValue > maxValue) {
-						
+
 						jtfReq[j].setPromptText("Req no. more than max number!");
-					}else{
+					} else {
 						jtfReq[j].setPromptText("Req: " + (j + 1));
 						return;
 					}
@@ -235,10 +245,10 @@ public class LineGrpController {
 				System.exit(0);
 			}
 
-			
-			//starting point is not added in arraylist that is going to pass to another class
+			// starting point is not added in arraylist that is going to pass to
+			// another class
 			series.getData().add(new XYChart.Data(0, startValue));
-			
+
 			for (int i = 1; i <= num; i++) {
 				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i - 1)));
 			}

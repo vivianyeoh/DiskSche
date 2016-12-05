@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
@@ -15,35 +16,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="783.0" prefWidth="990.0"
-	style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/8.0.60"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LineGrpController">
+<AnchorPane fx:id="root" prefHeight="783.0" prefWidth="990.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LineGrpController">
 	<children>
-		<BorderPane prefHeight="739.0" prefWidth="1032.0"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<BorderPane prefHeight="739.0" prefWidth="1032.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<center>
-				<BorderPane style="-fx-background-color: #ffffff;"
-					BorderPane.alignment="CENTER">
+				<BorderPane style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
 					<BorderPane.margin>
 						<Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
 					</BorderPane.margin>
 					<bottom>
-						<FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT"
-							prefHeight="49.0" prefWidth="686.0" rowValignment="TOP"
-							style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+						<FlowPane alignment="CENTER" prefHeight="49.0" prefWidth="686.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
 							<children>
-								<JFXTextField fx:id="fldHeadMove" alignment="CENTER"
-									labelFloat="true" editable="False" disable="True" promptText="Total Head Movement" />
+                        <JFXTextArea fx:id="fldSequence" editable="False" labelFloat="true" maxWidth="498.0" minWidth="313.0" prefHeight="24.0" prefWidth="498.0" promptText="Sequence" wrapText="true">
+                           <FlowPane.margin>
+                              <Insets right="15.0" />
+                           </FlowPane.margin></JFXTextArea>
+                        <JFXTextArea fx:id="fldHeadMove" editable="False" labelFloat="true" maxWidth="361.0" minWidth="128.0" prefHeight="24.0" prefWidth="164.0" promptText="Total Head Movement" wrapText="true" />
+                       
 							</children>
 							<padding>
-								<Insets right="15.0" />
+								<Insets left="5.0" right="5.0" />
 							</padding>
 						</FlowPane>
 					</bottom>
 					<center>
-						<LineChart fx:id="lineGrp" prefHeight="493.0" prefWidth="504.0"
-							BorderPane.alignment="CENTER">
+						<LineChart fx:id="lineGrp" prefHeight="493.0" prefWidth="504.0" BorderPane.alignment="CENTER">
 							<xAxis>
 								<NumberAxis side="BOTTOM" fx:id="xAxis" />
 							</xAxis>
@@ -53,73 +50,48 @@
 						</LineChart>
 					</center>
 					<effect>
-						<DropShadow blurType="TWO_PASS_BOX" height="2.0"
-							radius="0.5" spread="1.0" width="2.0" />
+						<DropShadow blurType="TWO_PASS_BOX" height="2.0" radius="0.5" spread="1.0" width="2.0" />
 					</effect>
 				</BorderPane>
 			</center>
 			<right>
-				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="635.0"
-					prefWidth="274.0" style="-fx-background-color: #FFFFFF;"
-					BorderPane.alignment="CENTER">
+				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="635.0" prefWidth="274.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
 					<children>
-						<ScrollPane fx:id="scrollList" layoutX="14.0" layoutY="207.0"
-							prefHeight="235.0" prefWidth="244.0">
+						<ScrollPane fx:id="scrollList" layoutX="14.0" layoutY="207.0" prefHeight="235.0" prefWidth="244.0">
 							<content>
-								<VBox fx:id="sclReq" alignment="TOP_LEFT" prefHeight="230.0"
-									prefWidth="239.0" spacing="20.0">
+								<VBox fx:id="sclReq" alignment="TOP_LEFT" prefHeight="230.0" prefWidth="239.0" spacing="20.0">
 									<padding>
 										<Insets bottom="5.0" left="5.0" right="5.0" top="25.0" />
 									</padding>
 								</VBox>
 							</content>
 						</ScrollPane>
-						<JFXTextField fx:id="numOfRequest" labelFloat="true"
-							layoutX="8.0" layoutY="33.0" maxWidth="252.0" minWidth="240.0"
-							prefHeight="31.0" prefWidth="252.0" promptText="Total Number of Requests" />
-						<FlowPane alignment="CENTER" columnHalignment="CENTER"
-							layoutX="10.0" layoutY="507.0" orientation="VERTICAL" prefHeight="169.0"
-							prefWidth="252.0">
+						<JFXTextField fx:id="numOfRequest" labelFloat="true" layoutX="8.0" layoutY="33.0" maxWidth="252.0" minWidth="240.0" prefHeight="31.0" prefWidth="252.0" promptText="Total Number of Requests" />
+						<FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="10.0" layoutY="507.0" orientation="VERTICAL" prefHeight="169.0" prefWidth="252.0">
 							<children>
-								<JFXButton fx:id="btnIllustr" alignment="CENTER"
-									buttonType="RAISED" mnemonicParsing="false" onAction="#submitReq"
-									prefHeight="25.0" prefWidth="242.0" ripplerFill="#aea6a6"
-									style="-fx-background-color: #3F51B5;" text="Illustrate Graph"
-									textAlignment="CENTER" textFill="WHITE">
+								<JFXButton fx:id="btnIllustr" alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onAction="#submitReq" prefHeight="25.0" prefWidth="242.0" ripplerFill="#aea6a6" style="-fx-background-color: #3F51B5;" text="Illustrate Graph" textAlignment="CENTER" textFill="WHITE">
 									<FlowPane.margin>
 										<Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
 									</FlowPane.margin>
 								</JFXButton>
-								<JFXButton fx:id="btnRad" alignment="CENTER"
-									buttonType="RAISED" mnemonicParsing="false" onAction="#setValues"
-									prefHeight="25.0" prefWidth="242.0" style="-fx-background-color: #E91E63;"
-									text="Random Num" textAlignment="CENTER" textFill="WHITE">
+								<JFXButton fx:id="btnRad" alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onAction="#setValues" prefHeight="25.0" prefWidth="242.0" style="-fx-background-color: #E91E63;" text="Random Num" textAlignment="CENTER" textFill="WHITE">
 									<FlowPane.margin>
 										<Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
 									</FlowPane.margin>
 								</JFXButton>
-								<JFXButton fx:id="btnClr" alignment="CENTER"
-									buttonType="RAISED" mnemonicParsing="false" onAction="#clear"
-									prefHeight="25.0" prefWidth="242.0" style="-fx-background-color: #009688;"
-									text="Clear" textAlignment="CENTER" textFill="WHITE">
+								<JFXButton fx:id="btnClr" alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onAction="#clear" prefHeight="25.0" prefWidth="242.0" style="-fx-background-color: #009688;" text="Clear" textAlignment="CENTER" textFill="WHITE">
 									<FlowPane.margin>
 										<Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
 									</FlowPane.margin>
 								</JFXButton>
 							</children>
 						</FlowPane>
-						<JFXComboBox fx:id="diskSchCombo" layoutX="11.0"
-							layoutY="450.0" prefHeight="49.0" prefWidth="250.0" />
-						<JFXTextField fx:id="headStart" labelFloat="true"
-							layoutX="9.0" layoutY="89.0" maxWidth="252.0" minWidth="242.0"
-							prefHeight="31.0" prefWidth="252.0" promptText="No of Head Start" />
-						<JFXTextField fx:id="maxCyl" labelFloat="true"
-							layoutX="8.0" layoutY="146.0" maxWidth="254.0" minWidth="242.0"
-							prefHeight="31.0" prefWidth="254.0" promptText="Maximum No of Cylinder" />
+						<JFXComboBox fx:id="diskSchCombo" layoutX="11.0" layoutY="450.0" prefHeight="49.0" prefWidth="250.0" />
+						<JFXTextField fx:id="headStart" labelFloat="true" layoutX="9.0" layoutY="89.0" maxWidth="252.0" minWidth="242.0" prefHeight="31.0" prefWidth="252.0" promptText="No of Head Start" />
+						<JFXTextField fx:id="maxCyl" labelFloat="true" layoutX="8.0" layoutY="146.0" maxWidth="254.0" minWidth="242.0" prefHeight="31.0" prefWidth="254.0" promptText="Maximum No of Cylinder" />
 					</children>
 					<effect>
-						<DropShadow blurType="TWO_PASS_BOX" height="2.0"
-							radius="0.5" spread="1.0" width="2.0" />
+						<DropShadow blurType="TWO_PASS_BOX" height="2.0" radius="0.5" spread="1.0" width="2.0" />
 					</effect>
 					<BorderPane.margin>
 						<Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
@@ -130,15 +102,12 @@
 				</AnchorPane>
 			</right>
 			<top>
-				<BorderPane prefHeight="84.0" prefWidth="1032.0"
-					style="-fx-background-color: #e51c23;" BorderPane.alignment="CENTER">
+				<BorderPane prefHeight="84.0" prefWidth="1032.0" style="-fx-background-color: #e51c23;" BorderPane.alignment="CENTER">
 					<effect>
 						<DropShadow />
 					</effect>
 					<center>
-						<Label alignment="CENTER" contentDisplay="CENTER"
-							prefHeight="75.0" prefWidth="423.0" text="Disk Scheduling Algorithms"
-							textFill="WHITE" BorderPane.alignment="CENTER">
+						<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="423.0" text="Disk Scheduling Algorithms" textFill="WHITE" BorderPane.alignment="CENTER">
 							<font>
 								<Font name="Franklin Gothic Medium Cond" size="33.0" />
 							</font>
