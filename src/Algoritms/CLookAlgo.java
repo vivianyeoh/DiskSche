@@ -6,8 +6,7 @@ import java.util.Collections;
 public class CLookAlgo extends ScheAlgorithm {
 
 	public CLookAlgo(ArrayList<Integer> reqList, int headStart) {
-		this.reqList = reqList;
-		this.headStart = headStart;
+		super(reqList, headStart);
 	}
 
 	public ArrayList<Integer> getArragedList() {

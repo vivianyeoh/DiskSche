@@ -8,8 +8,7 @@ public class LookAlgo extends ScheAlgorithm {
 	private int headStart;
 	
 	public LookAlgo(ArrayList<Integer> reqList, int headStart) {
-		this.reqList = reqList;
-		this.headStart = headStart;
+		super(reqList, headStart);
 	}
 
 	public ArrayList<Integer> getArragedList() {
