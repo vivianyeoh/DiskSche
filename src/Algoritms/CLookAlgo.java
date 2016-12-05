@@ -20,37 +20,33 @@ public class CLookAlgo extends ScheAlgorithm {
 				break;
 			}
 		}
-		System.out.println("headStart" + headStart);
-		int distanceToZero = Math.abs(headStart - 0);
-		int distanceToEnd = Math.abs(headStart - reqList.get(reqList.size()-1));
-		System.out.println("distanceToZero" + distanceToZero);
-		System.out.println("distanceToEnd" + distanceToEnd);
-		toBeArraged.add(headStart);
 
+		int distanceToZero = Math.abs(headStart - 0);
+		int distanceToEnd = Math.abs(headStart - reqList.get(reqList.size() - 1));
+		toBeArraged.add(headStart);
+		System.out.println("headStart" + headStart+ " positionofreqlist"+positionOfReqlist);
 		if (distanceToZero <= distanceToEnd) {
-			System.out.println("nearer");
 			// Nearer to zero, direction is to left
-			for (int i = positionOfReqlist - 1; i > 0; i--) {
-				System.out.println("nearer 1st i " + i);
+			for (int i = positionOfReqlist-1; i >= 0; i--) {
 				toBeArraged.add(reqList.get(i));
+				System.out.println("nearer "+i+": " + reqList.get(i));
 			}
 			for (int i = reqList.lastIndexOf(reqList); i > positionOfReqlist; i--) {
-				System.out.println("nearer 2nd i " + i);
 				toBeArraged.add(reqList.get(i));
+				System.out.println("nearer "+(i+positionOfReqlist-1)+": " + reqList.get(i));
 			}
 		} else {
-			System.out.println("further");
 			// Nearer to end, direction is to right
 			for (int i = positionOfReqlist + 1; i <= reqList.lastIndexOf(reqList); i++) {
-				System.out.println("further 1st i " + i);
 				toBeArraged.add(reqList.get(i));
+				System.out.println("further "+i+": " + reqList.get(i));
 			}
 			for (int i = 0; i < positionOfReqlist - 1; i++) {
-				System.out.println("further 2nd i " + i);
 				toBeArraged.add(reqList.get(i));
+				System.out.println("further "+(i+positionOfReqlist-1)+": " + reqList.get(i));
 			}
 		}
-
+		
 		return toBeArraged;
 	}
 
