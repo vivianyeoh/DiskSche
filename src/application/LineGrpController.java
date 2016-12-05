@@ -249,10 +249,10 @@ public class LineGrpController {
 				LOGGER.log(Level.SEVERE, "ScheAlgorithm switch case");
 				System.exit(0);
 			}
-
+			ArrayList<Integer> algoList = alg.getArrangedList();
 			// Starting point is added into scheAlgorithm's subclass
-			for (int i = 0; i < alg.getArrangedList().size(); i++) {
-				series.getData().add(new XYChart.Data(i, alg.getArrangedList().get(i)));
+			for (int i = 0; i < algoList.size(); i++) {
+				series.getData().add(new XYChart.Data(i, algoList.get(i)));
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 			lineGrp.getData().add(series);
