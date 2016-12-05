@@ -168,7 +168,6 @@ public class LineGrpController {
 					int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim())
 							: 0);
 					if (fieldValue > maxValue) {
-
 						jtfReq[j].setPromptText("Req no. more than max number!");
 					} else {
 						jtfReq[j].setPromptText("Req: " + (j + 1));
@@ -220,7 +219,7 @@ public class LineGrpController {
 			series.setName(diskSchCombo.getValue().toString());
 
 			ScheAlgorithm alg = new FCFS(reqList, startValue);
-
+			System.out.println("diskSchCombo.getValue().toString()"+diskSchCombo.getValue().toString());
 			switch (diskSchCombo.getValue().toString()) {
 			case "First-Come/First-Served (FCFS)":
 				alg = new FCFS(reqList, startValue);
@@ -247,7 +246,8 @@ public class LineGrpController {
 			}
 
 			//Starting point is added into scheAlgorithm's subclass
-			for (int i = 0; i <= num; i++) {
+			for (int i = 0; i < alg.getArragedList().size(); i++) {
+				System.out.println("for (int i = 0; i < alg.getArragedList().size(); i++) "+i);
 				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i)));
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
@@ -266,7 +266,7 @@ public class LineGrpController {
 	}
 
 	public void clearGraph() {
-
+		fldHeadMove.setText(0+ "");
 		lineGrp.getData().clear();
 
 	}
