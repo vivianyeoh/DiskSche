@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXTextField;
 import Algoritms.CLookAlgo;
 //import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
+import Algoritms.SSTF;
 import Algoritms.ScheAlgorithm;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -52,6 +53,8 @@ public class LineGrpController {
 	private JFXButton btnRad;
 	@FXML
 	private JFXTextArea fldHeadMove;
+	@FXML
+	private JFXTextArea fldSequence;
 	private JFXTextField[] jtfReq;
 	public boolean isFilledA, isFilledB, isFilledC;
 	private final static Logger LOGGER = Logger.getLogger(LineGrpController.class.getName());
@@ -230,7 +233,7 @@ public class LineGrpController {
 				alg = new FCFS(reqList, startValue);
 				break;
 			case "Shortest Seek Time First (SSTF)":
-				alg = new CLookAlgo(reqList, startValue);
+				alg = new SSTF(reqList, startValue);
 				break;
 			case "SCAN":
 				alg = new CLookAlgo(reqList, startValue);
@@ -256,10 +259,22 @@ public class LineGrpController {
 			for (int i = 0; i < algoList.size(); i++) {
 				series.getData().add(new XYChart.Data(i, algoList.get(i)));
 			}
-
+			fldSequence.setText(printSequence(algoList));
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 			lineGrp.getData().add(series);
 		}
+	}
+
+	public String printSequence(ArrayList<Integer> algoList) {
+		String sequence = "";
+		for (int i = 0; i < algoList.size(); i++) {
+			sequence += algoList.get(i);
+			if (i != algoList.size() - 1)
+				sequence += ", ";
+			else
+				sequence += ".";
+		}
+		return sequence;
 	}
 
 	public void clear() {
