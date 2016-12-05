@@ -14,7 +14,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
-import Algoritms.CLookAlgo;
+//import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
 import Algoritms.ScheAlgorithm;
 import javafx.application.Platform;
@@ -225,19 +225,19 @@ public class LineGrpController {
 				alg = new FCFS(reqList, startValue);
 				break;
 			case "Shortest Seek Time First (SSTF)":
-				alg = new CLookAlgo(reqList, startValue);
+//				alg = new CLookAlgo(reqList, startValue);
 				break;
 			case "SCAN":
-				alg = new CLookAlgo(reqList, startValue);
+//				alg = new CLookAlgo(reqList, startValue);
 				break;
 			case "CSCAN":
-				alg = new CLookAlgo(reqList, startValue);
+//				alg = new CLookAlgo(reqList, startValue);
 				break;
 			case "LOOK":
-				alg = new CLookAlgo(reqList, startValue);
+//				alg = new CLookAlgo(reqList, startValue);
 				break;
 			case "CLOOK":
-				alg = new CLookAlgo(reqList, startValue);
+//				alg = new CLookAlgo(reqList, startValue);
 				break;
 			default:
 				// For exception handling
@@ -247,9 +247,9 @@ public class LineGrpController {
 
 			// starting point is not added in arraylist that is going to pass to
 			// another class
-			series.getData().add(new XYChart.Data(0, startValue));
+//			series.getData().add(new XYChart.Data(0, startValue));
 
-			for (int i = 1; i <= num; i++) {
+			for (int i = 0; i <= num; i++) {
 				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i - 1)));
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");

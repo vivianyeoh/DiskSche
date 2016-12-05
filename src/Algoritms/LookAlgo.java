@@ -2,7 +2,7 @@ package Algoritms;
 
 import java.util.ArrayList;
 
-public class LookAlgo implements ScheAlgorithm {
+public class LookAlgo extends ScheAlgorithm {
 
 	private ArrayList<Integer> reqList;
 	private int headStart;
@@ -14,13 +14,9 @@ public class LookAlgo implements ScheAlgorithm {
 
 	public ArrayList<Integer> getArragedList() {
 		ArrayList<Integer> toBeArraged = reqList;
-
+		toBeArraged.add(headStart);
 		return toBeArraged;
 	}
 
-	public int getTtlHeadMovement() {
-		int headStart = 0;
-		
-		return headStart;
-	}
+
 }
