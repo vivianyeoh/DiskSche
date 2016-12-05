@@ -4,15 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CLookAlgo extends ScheAlgorithm {
-	private ArrayList<Integer> toBeArranged = new ArrayList<Integer>();
 
 	public CLookAlgo(ArrayList<Integer> reqList, int headStart) {
 		super(reqList, headStart);
-		arrangeList();
-	}
-
-	public ArrayList<Integer> getArrangedList() {
-		return toBeArranged;
 	}
 
 	public void arrangeList() {

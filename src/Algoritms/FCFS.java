@@ -9,12 +9,10 @@ public class FCFS extends ScheAlgorithm {
 		super(reqList, headStart);
 	}
 
-	public ArrayList<Integer> getArrangedList() {
-		ArrayList<Integer> toBeArraged = new ArrayList<Integer>();
-		toBeArraged.add(headStart);
+	public void arrangeList() {
+		toBeArranged.add(headStart);
 		for(int i:reqList)
-			toBeArraged.add(i);
-		return toBeArraged;
+			toBeArranged.add(i);
 	}
 
 	
