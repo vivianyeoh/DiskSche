@@ -134,17 +134,21 @@ public class LineGrpController {
 
 	}
 
-	public boolean validateTextFields(TextField txt, String newValue) {
+	public boolean validateTextFields(JFXTextField txt, String newValue) {
 
-		if (!newValue.trim().matches("\\d*")) {
-			txt.setPromptText("Insert a POSITIVE NUMBER please.");
+		if (!newValue.trim().matches("\\d+")) {
+			txt.setPromptText("Insert a NUMBER please.");
 		} else {
 			txt.setEffect(null);
 			return true;
 		}
-		txt.setText("");
-		txt.setEffect(drawBorder());
-		txt.requestFocus();
+
+		Platform.runLater(() -> {
+			txt.clear();
+			txt.setEffect(drawBorder());
+			txt.requestFocus();
+		});
+
 		return false;
 	}
 
@@ -246,10 +250,9 @@ public class LineGrpController {
 				System.exit(0);
 			}
 
-			System.out.println("alg.getArragedList().size()"+alg.getArragedList().size());
 			// Starting point is added into scheAlgorithm's subclass
-			for (int i = 0; i < alg.getArragedList().size(); i++) {
-				series.getData().add(new XYChart.Data(i, alg.getArragedList().get(i)));
+			for (int i = 0; i < alg.getArrangedList().size(); i++) {
+				series.getData().add(new XYChart.Data(i, alg.getArrangedList().get(i)));
 			}
 			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 			lineGrp.getData().add(series);

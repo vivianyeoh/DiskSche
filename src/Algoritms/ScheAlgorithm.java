@@ -11,12 +11,12 @@ public abstract class ScheAlgorithm {
 		this.headStart = headStart;
 	}
 	
-	public abstract ArrayList<Integer> getArragedList();
+	public abstract ArrayList<Integer> getArrangedList();
 
 	public int getTtlHeadMovement(){
 		int total = 0;
-		for (int i = 0; i < getArragedList().size()-1; i++) {
-			total += Math.abs(getArragedList().get(i)-getArragedList().get(i+1));
+		for (int i = 0; i < getArrangedList().size()-1; i++) {
+			total += Math.abs(getArrangedList().get(i)-getArrangedList().get(i+1));
 		}
 		return total;
 	}

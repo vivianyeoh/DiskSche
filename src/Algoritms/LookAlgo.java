@@ -11,10 +11,10 @@ public class LookAlgo extends ScheAlgorithm {
 		super(reqList, headStart);
 	}
 
-	public ArrayList<Integer> getArragedList() {
-		ArrayList<Integer> toBeArraged = reqList;
-		toBeArraged.add(headStart);
-		return toBeArraged;
+	public ArrayList<Integer> getArrangedList() {
+		ArrayList<Integer> toBeArranged = reqList;
+		toBeArranged.add(headStart);
+		return toBeArranged;
 	}
 
 
