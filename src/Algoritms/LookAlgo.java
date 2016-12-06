@@ -1,6 +1,7 @@
 package Algoritms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LookAlgo extends ScheAlgorithm {
 
@@ -10,7 +11,6 @@ public class LookAlgo extends ScheAlgorithm {
 	}
 
 	public void arrangeList() {
-		toBeArranged.add(headStart);
 	}
 
 

@@ -5,8 +5,19 @@ import java.util.Collections;
 
 public class CLookAlgo extends ScheAlgorithm {
 
+	private int minIndex = 1;
+	private int maxIndex = 1;
+
 	public CLookAlgo(ArrayList<Integer> reqList, int headStart) {
 		super(reqList, headStart);
+
+		for (int i = 1; i < getArrangedList().size(); i++) {
+			if (getArrangedList().get(i) > getArrangedList().get(maxIndex))
+				maxIndex = i;
+			if (getArrangedList().get(i) < getArrangedList().get(minIndex))
+				minIndex = i;
+		}
+
 	}
 
 	public void arrangeList() {
@@ -19,28 +30,25 @@ public class CLookAlgo extends ScheAlgorithm {
 				break;
 			}
 		}
-
-		int distanceToZero = Math.abs(headStart - 0);
-		int distanceToEnd = Math.abs(headStart - reqList.get(reqList.size() - 1));
-
+		
 		toBeArranged.add(headStart);
 
-		if (distanceToZero <= distanceToEnd) {
-			// Nearer to zero, direction is to start, largest value after
-			// smallest value
-			for (int i = positionOfReqlist - 1; i >= 0; i--) {
-				toBeArranged.add(reqList.get(i));
-			}
-			for (int i = reqList.size() - 1; i >= positionOfReqlist; i--) {
-				toBeArranged.add(reqList.get(i));
-			}
-		} else {
+		if (minIndex > maxIndex) {
 			// Nearer to end, direction is to end, smallest value after larger
 			// value
 			for (int i = positionOfReqlist; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
 			for (int i = 0; i < positionOfReqlist; i++) {
+				toBeArranged.add(reqList.get(i));
+			}
+		} else {
+			// Nearer to zero, direction is to start, largest value after
+			// smallest value
+			for (int i = positionOfReqlist - 1; i >= 0; i--) {
+				toBeArranged.add(reqList.get(i));
+			}
+			for (int i = reqList.size() - 1; i >= positionOfReqlist; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
 		}
@@ -50,30 +58,22 @@ public class CLookAlgo extends ScheAlgorithm {
 	@Override
 	public int getTtlHeadMovement() {
 		int total = 0;
-		int max = 1;
-		int min = 1;
-		for (int i = 1; i < getArrangedList().size(); i++) {
-			if (getArrangedList().get(i) > getArrangedList().get(max))
-				max = i;
-			if (getArrangedList().get(i) < getArrangedList().get(min))
-				min = i;
-		}
 
 		// direction to end
-		if (min > max) {
-			for (int i = 0; i < max; i++) {
+		if (minIndex > maxIndex) {
+			for (int i = 0; i < maxIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
 			}
-			for (int i = min; i < getArrangedList().size() - 1; i++) {
+			for (int i = minIndex; i < getArrangedList().size() - 1; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
 			}
 		} // direction to start
 		else {
 
-			for (int i = 0; i < min; i++) {
+			for (int i = 0; i < minIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
 			}
-			for (int i = max; i < getArrangedList().size() - 1; i++) {
+			for (int i = maxIndex; i < getArrangedList().size() - 1; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
 			}
 		}
