@@ -206,6 +206,7 @@ public class LineGrpController {
 	// request text field it has
 	public void initializeReqList(int numOfCy) {
 
+		//generate textfields
 		jtfReq = new JFXTextField[numOfCy];
 
 		for (int i = 0; i < numOfCy; i++) {
@@ -213,11 +214,17 @@ public class LineGrpController {
 			jtfReq[i] = new JFXTextField();
 			jtfReq[i].setPromptText("Req: " + (i + 1));
 			jtfReq[i].setLabelFloat(true);
+			
+			//set j=i because local variable i defined in an enclosing scope must be final
 			int j = i;
 			jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
+				
+				// to check if value in jtfReq is zero or positive number
 				boolean val = validateTextFields(jtfReq[j], newValue);
 
 				if (val) {
+					// make sure fieldValue and maxValue is number to solve
+					// java.lang.NumberFormatException: For input string:""
 					int fieldValue = (!jtfReq[j].getText().equals("") ? Integer.parseInt(jtfReq[j].getText().trim())
 							: 0);
 					int maxValue = (!maxCyl.getText().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
@@ -226,7 +233,7 @@ public class LineGrpController {
 						Platform.runLater(() -> {
 							jtfReq[j].clear();
 							jtfReq[j].setEffect(drawBorder());
-							jtfReq[j].requestFocus();
+							maxCyl.requestFocus();
 						});
 					} else {
 						jtfReq[j].setPromptText("Req: " + (j + 1));
