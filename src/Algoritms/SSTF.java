@@ -21,7 +21,7 @@ public class SSTF extends ScheAlgorithm {
 			while (reqList.size() > 0) // SSTF implementation
 			{
 				int minDis = 0;
-				for (int j = 1; j < reqList.size(); j++) 
+				for (int j = 1; j < reqList.size(); j++)
 					// find next minimum distance
 					if (Math.abs(headStart - reqList.get(j).intValue()) < Math
 							.abs(headStart - reqList.get(minDis).intValue()))
@@ -29,10 +29,10 @@ public class SSTF extends ScheAlgorithm {
 
 				// Total += Math.abs(headStart -
 				// reqList.get(minDis).intValue());
-				headStart = reqList.get(minDis).intValue(); 
+				headStart = reqList.get(minDis).intValue();
 				// reposition the head
-			
-				reqList.remove(minDis); // remove processed request	
+
+				reqList.remove(minDis); // remove processed request
 				toBeArranged.add(headStart);
 			}
 

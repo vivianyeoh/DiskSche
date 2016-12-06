@@ -89,17 +89,18 @@ public class LineGrpController {
 	public void initializeCylinderReqField() {
 
 		numOfRequest.textProperty().addListener((observable, oldValue, newValue) -> {
-			//Reset graph
+			// Reset graph
 			clearGraph();
 
-			//Reset vbox
+			// Reset vbox
 			sclReq.getChildren().clear();
 
 			// to check if value in numOfRequest is zero or positive number
 			isFilledA = validateTextFields(numOfRequest, newValue);
 
 			if (isFilledA) {
-				//make sure num is number to solve java.lang.NumberFormatException: For input string:""
+				// make sure num is number to solve
+				// java.lang.NumberFormatException: For input string:""
 				int num = (!newValue.equals("") ? Integer.parseInt(newValue) : 0);
 
 				// if user has typed maximum cylinder
@@ -120,7 +121,8 @@ public class LineGrpController {
 						btnIllustr.setDisable(true);
 					}
 				} else {
-					// disable the button that generate random values because there is no textfields in vbox
+					// disable the button that generate random values because
+					// there is no textfields in vbox
 					btnRad.setDisable(true);
 				}
 			}
@@ -142,27 +144,28 @@ public class LineGrpController {
 		});
 
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
-			//Reset graph
+			// Reset graph
 			clearGraph();
 
-			//Reset vbox
+			// Reset vbox
 			sclReq.getChildren().clear();
-			
+
 			// to check if value in maxCyl is zero or positive number
 			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
 				if (isFilledA) {
-					
-					//make sure num is number to solve java.lang.NumberFormatException: For input string:""
+
+					// make sure num is number to solve
+					// java.lang.NumberFormatException: For input string:""
 					int numOfReq = !numOfRequest.getText().trim().equals("")
 							? Integer.parseInt(numOfRequest.getText().trim()) : 0;
-							
-					//reset req list
+
+					// reset req list
 					initializeReqList(numOfReq);
-					
-					//allow user to click button that generates random values
+
+					// allow user to click button that generates random values
 					btnRad.setDisable(false);
-					
+
 					// if user has filled in all 3 fields
 					if (isFilledB) {
 						// enable user to click illustrate graph button
@@ -172,7 +175,8 @@ public class LineGrpController {
 						btnIllustr.setDisable(true);
 					}
 				} else {
-					//disable the button that generate random values because there is no textfields in vbox
+					// disable the button that generate random values because
+					// there is no textfields in vbox
 					btnRad.setDisable(true);
 				}
 			}
@@ -182,7 +186,7 @@ public class LineGrpController {
 	}
 
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
-//check if the value in textfields is a zero or positive number
+		// check if the value in textfields is a zero or positive number
 		if (!(newValue.trim().matches("\\d+") || newValue.equals(""))) {
 			Platform.runLater(() -> {
 				txt.clear();
@@ -266,7 +270,7 @@ public class LineGrpController {
 		int startValue = (!headStart.getText().trim().equals("") ? Integer.parseInt(headStart.getText().trim()) : 0);
 		int num = (!numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0);
 		int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
-		
+
 		if (num > 1) {
 			ArrayList<Integer> reqList = createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
@@ -281,7 +285,7 @@ public class LineGrpController {
 				alg = new SSTF(reqList, startValue);
 				break;
 			case "SCAN":
-				alg = new Scan(reqList, startValue,maxValue);
+				alg = new Scan(reqList, startValue, maxValue);
 				break;
 			case "CSCAN":
 				alg = new CScan(reqList, startValue, maxValue);

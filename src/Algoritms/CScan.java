@@ -8,7 +8,7 @@ public class CScan extends ScheAlgorithm {
 	private int maxIndex = 1;
 
 	public CScan(ArrayList<Integer> reqList, int headStart, int maxValue) {
-		super(reqList, headStart,maxValue);
+		super(reqList, headStart, maxValue);
 	}
 
 	public void arrangeList() {
@@ -20,18 +20,16 @@ public class CScan extends ScheAlgorithm {
 				break;
 			}
 		}
-		
+
 		toBeArranged.add(headStart);
-		
-		
-		if (headStart != (maxValue/2)) {
+
+		if (headStart != (maxValue / 2)) {
 			// Nearer to end, direction is to end, smallest value after larger
 			// value
 			for (int i = positionOfReqlist; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
 			toBeArranged.add(maxValue);
-			System.out.println(maxValue);
 			toBeArranged.add(0);
 			for (int i = 0; i < positionOfReqlist; i++) {
 				toBeArranged.add(reqList.get(i));
@@ -42,7 +40,6 @@ public class CScan extends ScheAlgorithm {
 			for (int i = positionOfReqlist - 1; i >= 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
-			System.out.println("to yhe lft");
 			toBeArranged.add(0);
 			toBeArranged.add(maxValue);
 
@@ -77,5 +74,5 @@ public class CScan extends ScheAlgorithm {
 
 		return total;
 	}
-	
+
 }

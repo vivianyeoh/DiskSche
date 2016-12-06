@@ -48,7 +48,7 @@ public class LookAlgo extends ScheAlgorithm {
 			for (int i = positionOfReqlist - 1; i >= 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
-			for (int i = positionOfReqlist; i < reqList.size();  i++) {
+			for (int i = positionOfReqlist; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
 		}

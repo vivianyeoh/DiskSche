@@ -27,7 +27,9 @@
 					<bottom>
 						<FlowPane alignment="CENTER" prefHeight="49.0" prefWidth="686.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
 							<children>
-                        <JFXTextArea fx:id="fldSequence" editable="False" labelFloat="true" maxWidth="498.0" minWidth="313.0" prefHeight="24.0" prefWidth="498.0" promptText="Sequence" wrapText="true">
+                        <JFXTextArea fx:id="fldSequence"
+	editable="False" labelFloat="true" maxWidth="498.0" minWidth="313.0"
+	prefHeight="24.0" prefWidth="498.0" promptText="Sequence" wrapText="true">
                            <FlowPane.margin>
                               <Insets right="15.0" />
                            </FlowPane.margin></JFXTextArea>
