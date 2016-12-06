@@ -263,7 +263,8 @@ public class LineGrpController {
 
 		int startValue = (!headStart.getText().trim().equals("") ? Integer.parseInt(headStart.getText().trim()) : 0);
 		int num = (!numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0);
-
+		int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
+		
 		if (num > 1) {
 			ArrayList<Integer> reqList = createFullReqList(num);
 			XYChart.Series series = new XYChart.Series();
@@ -278,10 +279,10 @@ public class LineGrpController {
 				alg = new SSTF(reqList, startValue);
 				break;
 			case "SCAN":
-				alg = new CLookAlgo(reqList, startValue);
+				alg = new CLookAlgo(reqList, startValue,maxValue);
 				break;
 			case "CSCAN":
-				alg = new CLookAlgo(reqList, startValue);
+				alg = new CLookAlgo(reqList, startValue, maxValue);
 				break;
 			case "LOOK":
 				alg = new LookAlgo(reqList, startValue);
