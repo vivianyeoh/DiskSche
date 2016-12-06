@@ -69,7 +69,8 @@ public class LineGrpController {
 		xAxis.setLabel("Time Unit");
 		lineGrp.setCreateSymbols(true);
 
-		//to solve java.lang.IllegalArgumentException: The start must be <= the end
+		// to solve java.lang.IllegalArgumentException: The start must be <= the
+		// end
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -85,7 +86,8 @@ public class LineGrpController {
 			sclReq.getChildren().clear();
 			isFilledA = validateTextFields(numOfRequest, newValue);
 			if (isFilledA) {
-				//to solve java.lang.NumberFormatException: For input string: ""
+				// to solve java.lang.NumberFormatException: For input string:
+				// ""
 				int num = (!newValue.equals("") ? Integer.parseInt(newValue) : 0);
 				if (isFilledC) {
 					initializeReqList(num);
@@ -139,20 +141,19 @@ public class LineGrpController {
 
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
 
-		if (!(newValue.trim().matches("\\d+")||newValue.equals(""))) {
+		if (!(newValue.trim().matches("\\d+") || newValue.equals(""))) {
 			Platform.runLater(() -> {
-			txt.clear();
-			txt.setEffect(drawBorder());
-			txt.requestFocus();
-		});
+				txt.clear();
+				txt.setEffect(drawBorder());
+				txt.requestFocus();
+			});
 
-		return false;
+			return false;
 		} else {
 			txt.setEffect(null);
 			return true;
 		}
 
-		
 	}
 
 	// When num of cylinder is different, VBox has to change the number of
