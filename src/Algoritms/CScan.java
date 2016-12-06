@@ -1,3 +1,8 @@
+/**
+ * @author Nurtahirah binti Abdul Rahman
+ * @Date 6 Dec 2016
+ */
+
 package Algoritms;
 
 import java.util.ArrayList;
@@ -23,7 +28,7 @@ public class CScan extends ScheAlgorithm {
 
 		toBeArranged.add(headStart);
 
-		if (headStart != (maxValue / 2)) {
+		if (headStart > (maxValue + 1 / 2)) {
 			// Nearer to end, direction is to end, smallest value after larger
 			// value
 			for (int i = positionOfReqlist; i < reqList.size(); i++) {
@@ -52,7 +57,12 @@ public class CScan extends ScheAlgorithm {
 	@Override
 	public int getTtlHeadMovement() {
 		int total = 0;
-
+		for (int i = 1; i < getArrangedList().size(); i++) {
+			if (getArrangedList().get(i) > getArrangedList().get(maxIndex))
+				maxIndex = i;
+			if (getArrangedList().get(i) < getArrangedList().get(minIndex))
+				minIndex = i;
+		}
 		// direction to end
 		if (minIndex > maxIndex) {
 			for (int i = 0; i < maxIndex; i++) {
@@ -74,5 +84,4 @@ public class CScan extends ScheAlgorithm {
 
 		return total;
 	}
-
 }

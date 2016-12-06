@@ -1,7 +1,11 @@
+/**
+ * @author Yeoh Hui Wen
+ * @Date 6 Dec 2016
+ */
+
 
 package application;
 
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 
 import java.util.ArrayList;
@@ -16,9 +20,8 @@ import com.jfoenix.controls.JFXTextField;
 
 import Algoritms.CLook;
 import Algoritms.CScan;
-//import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
-import Algoritms.LookAlgo;
+import Algoritms.Look;
 import Algoritms.SSTF;
 import Algoritms.Scan;
 import Algoritms.ScheAlgorithm;
@@ -313,7 +316,7 @@ public class LineGrpController {
 				alg = new CScan(reqList, startValue, maxValue);
 				break;
 			case "LOOK":
-				alg = new LookAlgo(reqList, startValue);
+				alg = new Look(reqList, startValue);
 				break;
 			case "CLOOK":
 				alg = new CLook(reqList, startValue);

@@ -1,16 +1,21 @@
+/**
+ * @author Yeoh Hui Wen
+ * @Date 6 Dec 2016
+ */
+
 package Algoritms;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LookAlgo extends ScheAlgorithm {
+public class Look extends ScheAlgorithm {
 
 	private int minIndex = 1;
 	private int maxIndex = 1;
 
-	public LookAlgo(ArrayList<Integer> reqList, int headStart) {
+	public Look(ArrayList<Integer> reqList, int headStart) {
 		super(reqList, headStart);
-
+		//get Max and min value
 		for (int i = 1; i < getArrangedList().size(); i++) {
 			if (getArrangedList().get(i) > getArrangedList().get(maxIndex))
 				maxIndex = i;
@@ -23,32 +28,40 @@ public class LookAlgo extends ScheAlgorithm {
 	public void arrangeList() {
 		Collections.sort(reqList);
 
-		int positionOfReqlist = 0;
+		int positionOfHeadStart = 0;
+		//find the position of headstart 
 		for (int i = 0; i < reqList.size(); i++) {
 			if (reqList.get(i) >= headStart) {
-				positionOfReqlist = i;
+				positionOfHeadStart = i;
 				break;
 			}
 		}
 
+		//let headstart be the first dot in toBeArranged list
 		toBeArranged.add(headStart);
 
 		if (minIndex > maxIndex) {
 			// Nearer to end, direction is to end, smallest value after larger
 			// value
-			for (int i = positionOfReqlist; i < reqList.size(); i++) {
+			//start from first number that is bigger than or equal to headstart
+			for (int i = positionOfHeadStart; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
-			for (int i = positionOfReqlist - 1; i > 0; i--) {
+			
+			//follow by one value smaller than headstart
+			for (int i = positionOfHeadStart - 1; i > 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
 		} else {
 			// Nearer to zero, direction is to start, largest value after
 			// smallest value
-			for (int i = positionOfReqlist - 1; i >= 0; i--) {
+			//start from first number that is smaller than headstart
+			for (int i = positionOfHeadStart - 1; i >= 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
-			for (int i = positionOfReqlist; i < reqList.size(); i++) {
+			
+			//follow by first number that is bigger than or equal to headstart
+			for (int i = positionOfHeadStart; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
 		}
