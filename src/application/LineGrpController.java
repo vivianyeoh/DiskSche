@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXTextField;
 import Algoritms.CLookAlgo;
 //import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
+import Algoritms.LookAlgo;
 import Algoritms.SSTF;
 import Algoritms.ScheAlgorithm;
 import javafx.application.Platform;
@@ -68,6 +69,7 @@ public class LineGrpController {
 		xAxis.setLabel("Time Unit");
 		lineGrp.setCreateSymbols(true);
 
+		//to solve java.lang.IllegalArgumentException: The start must be <= the end
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -83,8 +85,8 @@ public class LineGrpController {
 			sclReq.getChildren().clear();
 			isFilledA = validateTextFields(numOfRequest, newValue);
 			if (isFilledA) {
-				numOfRequest.setPromptText("Total Number of Request");
-				int num = Integer.parseInt(newValue);
+				//to solve java.lang.NumberFormatException: For input string: ""
+				int num = (!newValue.equals("") ? Integer.parseInt(newValue) : 0);
 				if (isFilledC) {
 					initializeReqList(num);
 					btnRad.setDisable(false);
@@ -103,7 +105,6 @@ public class LineGrpController {
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
 			isFilledB = validateTextFields(headStart, newValue);
 			if (isFilledB) {
-				headStart.setPromptText("Number of Head Start");
 				if (isFilledA && isFilledC) {
 					btnIllustr.setDisable(false);
 				} else {
@@ -117,7 +118,6 @@ public class LineGrpController {
 			sclReq.getChildren().clear();
 			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
-				maxCyl.setPromptText("Maximum No of Cylinder");
 				if (isFilledA) {
 					int numOfReq = !numOfRequest.getText().trim().equals("")
 							? Integer.parseInt(numOfRequest.getText().trim()) : 0;
@@ -139,20 +139,20 @@ public class LineGrpController {
 
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
 
-		if (!newValue.trim().matches("\\d+")) {
-			txt.setPromptText("Insert a NUMBER please.");
-		} else {
-			txt.setEffect(null);
-			return true;
-		}
-
-		Platform.runLater(() -> {
+		if (!(newValue.trim().matches("\\d+")||newValue.equals(""))) {
+			Platform.runLater(() -> {
 			txt.clear();
 			txt.setEffect(drawBorder());
 			txt.requestFocus();
 		});
 
 		return false;
+		} else {
+			txt.setEffect(null);
+			return true;
+		}
+
+		
 	}
 
 	// When num of cylinder is different, VBox has to change the number of
@@ -176,10 +176,11 @@ public class LineGrpController {
 					int maxValue = (!maxCyl.getText().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
 
 					if (fieldValue > maxValue) {
-						jtfReq[j].setPromptText("Req no. more than max number!");
-						jtfReq[j].setText("");
-						jtfReq[j].setEffect(drawBorder());
-						jtfReq[j].requestFocus();
+						Platform.runLater(() -> {
+							jtfReq[j].clear();
+							jtfReq[j].setEffect(drawBorder());
+							jtfReq[j].requestFocus();
+						});
 					} else {
 						jtfReq[j].setPromptText("Req: " + (j + 1));
 
@@ -242,7 +243,7 @@ public class LineGrpController {
 				alg = new CLookAlgo(reqList, startValue);
 				break;
 			case "LOOK":
-				alg = new CLookAlgo(reqList, startValue);
+				alg = new LookAlgo(reqList, startValue);
 				break;
 			case "CLOOK":
 				alg = new CLookAlgo(reqList, startValue);

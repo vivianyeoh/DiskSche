@@ -30,7 +30,7 @@ public class CLookAlgo extends ScheAlgorithm {
 				break;
 			}
 		}
-		
+
 		toBeArranged.add(headStart);
 
 		if (minIndex > maxIndex) {
