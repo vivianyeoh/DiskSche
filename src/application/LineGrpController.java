@@ -14,11 +14,13 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
-import Algoritms.CLookAlgo;
+import Algoritms.CLook;
+import Algoritms.CScan;
 //import Algoritms.CLookAlgo;
 import Algoritms.FCFS;
 import Algoritms.LookAlgo;
 import Algoritms.SSTF;
+import Algoritms.Scan;
 import Algoritms.ScheAlgorithm;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -279,16 +281,16 @@ public class LineGrpController {
 				alg = new SSTF(reqList, startValue);
 				break;
 			case "SCAN":
-				alg = new CLookAlgo(reqList, startValue,maxValue);
+				alg = new Scan(reqList, startValue,maxValue);
 				break;
 			case "CSCAN":
-				alg = new CLookAlgo(reqList, startValue, maxValue);
+				alg = new CScan(reqList, startValue, maxValue);
 				break;
 			case "LOOK":
 				alg = new LookAlgo(reqList, startValue);
 				break;
 			case "CLOOK":
-				alg = new CLookAlgo(reqList, startValue);
+				alg = new CLook(reqList, startValue);
 				break;
 			default:
 				// For exception handling

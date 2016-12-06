@@ -3,25 +3,15 @@ package Algoritms;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CLookAlgo extends ScheAlgorithm {
-
-	private int minIndex = 1;
+public class CScan extends ScheAlgorithm {
+	private int minIndex = 0;
 	private int maxIndex = 1;
 
-	public CLookAlgo(ArrayList<Integer> reqList, int headStart) {
-		super(reqList, headStart);
-
-		for (int i = 1; i < getArrangedList().size(); i++) {
-			if (getArrangedList().get(i) > getArrangedList().get(maxIndex))
-				maxIndex = i;
-			if (getArrangedList().get(i) < getArrangedList().get(minIndex))
-				minIndex = i;
-		}
-
+	public CScan(ArrayList<Integer> reqList, int headStart, int maxValue) {
+		super(reqList, headStart,maxValue);
 	}
 
 	public void arrangeList() {
-
 		Collections.sort(reqList);
 		int positionOfReqlist = 0;
 		for (int i = 0; i < reqList.size(); i++) {
@@ -30,15 +20,19 @@ public class CLookAlgo extends ScheAlgorithm {
 				break;
 			}
 		}
-
+		
 		toBeArranged.add(headStart);
-
-		if (minIndex > maxIndex) {
+		
+		
+		if (headStart != (maxValue/2)) {
 			// Nearer to end, direction is to end, smallest value after larger
 			// value
 			for (int i = positionOfReqlist; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
+			toBeArranged.add(maxValue);
+			System.out.println(maxValue);
+			toBeArranged.add(0);
 			for (int i = 0; i < positionOfReqlist; i++) {
 				toBeArranged.add(reqList.get(i));
 			}
@@ -48,11 +42,14 @@ public class CLookAlgo extends ScheAlgorithm {
 			for (int i = positionOfReqlist - 1; i >= 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
+			System.out.println("to yhe lft");
+			toBeArranged.add(0);
+			toBeArranged.add(maxValue);
+
 			for (int i = reqList.size() - 1; i >= positionOfReqlist; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
 		}
-
 	}
 
 	@Override
@@ -80,5 +77,5 @@ public class CLookAlgo extends ScheAlgorithm {
 
 		return total;
 	}
-
+	
 }
