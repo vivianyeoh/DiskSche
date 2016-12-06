@@ -63,7 +63,7 @@ public class LineGrpController {
 	private final static Logger LOGGER = Logger.getLogger(LineGrpController.class.getName());
 
 	public void initialize() {
-		initializeFields();
+		disableButtons();
 		initializeCylinderReqField();
 		initializeComboBox();
 
@@ -206,7 +206,7 @@ public class LineGrpController {
 	// request text field it has
 	public void initializeReqList(int numOfCy) {
 
-		//generate textfields
+		// generate textfields
 		jtfReq = new JFXTextField[numOfCy];
 
 		for (int i = 0; i < numOfCy; i++) {
@@ -214,11 +214,12 @@ public class LineGrpController {
 			jtfReq[i] = new JFXTextField();
 			jtfReq[i].setPromptText("Req: " + (i + 1));
 			jtfReq[i].setLabelFloat(true);
-			
-			//set j=i because local variable i defined in an enclosing scope must be final
+
+			// set j=i because local variable i defined in an enclosing scope
+			// must be final
 			int j = i;
 			jtfReq[i].textProperty().addListener((observable, oldValue, newValue) -> {
-				
+
 				// to check if value in jtfReq is zero or positive number
 				boolean val = validateTextFields(jtfReq[j], newValue);
 
@@ -229,38 +230,41 @@ public class LineGrpController {
 							: 0);
 					int maxValue = (!maxCyl.getText().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
 
+					// request number that user keyed in must be smaller than
+					// maximum cylinder
 					if (fieldValue > maxValue) {
 						Platform.runLater(() -> {
 							jtfReq[j].clear();
 							jtfReq[j].setEffect(drawBorder());
 							maxCyl.requestFocus();
 						});
-					} else {
-						jtfReq[j].setPromptText("Req: " + (j + 1));
-
 					}
 
 				}
 
 			});
 
-			jtfReq[i].setId("Req" + i);
+			// add textfield into vbox sclReq
 			sclReq.getChildren().add(jtfReq[i]);
 
 		}
 	}
 
+	// add information inside combo box
 	public void initializeComboBox() {
 		diskSchCombo.getItems().addAll("First-Come/First-Served (FCFS)", "Shortest Seek Time First (SSTF)", "SCAN",
 				"CSCAN", "LOOK", "CLOOK");
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
-	public void initializeFields() {
+	// disable buttons to prevent user pressed them before user keyed in
+	// everything
+	public void disableButtons() {
 		btnIllustr.setDisable(true);
 		btnRad.setDisable(true);
 	}
 
+	// create an arraylist with request numbers that user keyed in
 	public ArrayList<Integer> createFullReqList(int numOfReq) {
 		ArrayList<Integer> reqList = new ArrayList<Integer>();
 		if (numOfReq > 0) {
@@ -271,19 +275,30 @@ public class LineGrpController {
 		return reqList;
 	}
 
+	// when button illustrate graoh is pressed, generate graph
 	public void submitReq() {
 		clearGraph();
 
+		// make sure startValue, num and maxValue are numbers to solve
+		// java.lang.NumberFormatException: For input string:""
 		int startValue = (!headStart.getText().trim().equals("") ? Integer.parseInt(headStart.getText().trim()) : 0);
 		int num = (!numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0);
 		int maxValue = (!maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0);
 
-		if (num > 1) {
+		// number must more than 0 to construct a line between headstart and
+		// reqlist
+		if (num > 0) {
+
+			// create reqlist with arraylist from createFullReqList
 			ArrayList<Integer> reqList = createFullReqList(num);
+
+			// create line chart
 			XYChart.Series series = new XYChart.Series();
 			series.setName(diskSchCombo.getValue().toString());
 
 			ScheAlgorithm alg = new FCFS(reqList, startValue);
+
+			// get value from combo box to determine which algorithm to use
 			switch (diskSchCombo.getValue().toString()) {
 			case "First-Come/First-Served (FCFS)":
 				alg = new FCFS(reqList, startValue);
@@ -312,15 +327,21 @@ public class LineGrpController {
 			// Starting point has added into scheAlgorithm's subclass
 			ArrayList<Integer> algoList = alg.getArrangedList();
 
+			// insert data into linegraph
 			for (int i = 0; i < algoList.size(); i++) {
 				series.getData().add(new XYChart.Data(i, algoList.get(i)));
 			}
-			fldSequence.setText(printSequence(algoList));
-			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 			lineGrp.getData().add(series);
+
+			// set text of sequence field
+			fldSequence.setText(printSequence(algoList));
+
+			// set text of total head movement
+			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
 		}
 	}
 
+	//Create a string that contains data from algolist
 	public String printSequence(ArrayList<Integer> algoList) {
 		String sequence = "";
 		for (int i = 0; i < algoList.size(); i++) {
@@ -333,22 +354,24 @@ public class LineGrpController {
 		return sequence;
 	}
 
+	//clear everything on graph
 	public void clear() {
 		clearGraph();
 		sclReq.getChildren().clear();
 		numOfRequest.setText(0 + "");
 		headStart.setText(0 + "");
 		maxCyl.setText(0 + "");
-		fldHeadMove.setText(0 + "");
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
+	//clear all data on graph
 	public void clearGraph() {
+		fldSequence.setText(0 + "");
 		fldHeadMove.setText(0 + "");
 		lineGrp.getData().clear();
-
 	}
 
+	//draw red color outer shadow for incorrect input
 	public DropShadow drawBorder() {
 		int depth = 30;
 		DropShadow borderGlow = new DropShadow();
@@ -360,6 +383,7 @@ public class LineGrpController {
 		return borderGlow;
 	}
 
+	//generate random values when button random is pressed
 	public void setValues() {
 		int numOfReq = !numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0;
 		int maxValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
