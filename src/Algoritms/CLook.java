@@ -70,6 +70,7 @@ public class CLook extends ScheAlgorithm {
 		int total = 0;
 
 		// direction to end
+		//skip the addition between maxIndex and minIndex because huge jump doesn't count as a head movement in CLook
 		if (minIndex > maxIndex) {
 			for (int i = 0; i < maxIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
