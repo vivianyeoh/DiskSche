@@ -67,6 +67,8 @@ public class LineGrpController {
 
 		yAxis.setLabel("Cylinder");
 		xAxis.setLabel("Time Unit");
+
+		// add dots on line graph
 		lineGrp.setCreateSymbols(true);
 
 		// to solve java.lang.IllegalArgumentException: The start must be <= the
@@ -74,63 +76,101 @@ public class LineGrpController {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+				// let numofRequest be the first field that user type
 				numOfRequest.requestFocus();
 			}
 		});
 
 	}
 
+	// when user change the value of numOfRequest, headStart, maxCyl;
 	public void initializeCylinderReqField() {
+
 		numOfRequest.textProperty().addListener((observable, oldValue, newValue) -> {
+			//Reset graph
 			clearGraph();
+
+			//Reset vbox
 			sclReq.getChildren().clear();
+
+			// to check if value in numOfRequest is zero or positive number
 			isFilledA = validateTextFields(numOfRequest, newValue);
+
 			if (isFilledA) {
-				// to solve java.lang.NumberFormatException: For input string:
-				// ""
+				//make sure num is number to solve java.lang.NumberFormatException: For input string:""
 				int num = (!newValue.equals("") ? Integer.parseInt(newValue) : 0);
+
+				// if user has typed maximum cylinder
 				if (isFilledC) {
+
+					// add request textfield in sclReq(vbox)
 					initializeReqList(num);
+
+					// enable button that generate random values
 					btnRad.setDisable(false);
 
+					// if user has filled in all 3 fields
 					if (isFilledB) {
+						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
+						// disable the illustrate graph button
 						btnIllustr.setDisable(true);
 					}
 				} else {
+					// disable the button that generate random values because there is no textfields in vbox
 					btnRad.setDisable(true);
 				}
 			}
 		});
 
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
+			// to check if value in headStart is positive number
 			isFilledB = validateTextFields(headStart, newValue);
 			if (isFilledB) {
+				// if user has filled in all 3 fields
 				if (isFilledA && isFilledC) {
+					// enable user to click illustrate graph button
 					btnIllustr.setDisable(false);
 				} else {
+					// disable the illustrate graph button
 					btnIllustr.setDisable(true);
 				}
 			}
 		});
 
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
+			//Reset graph
 			clearGraph();
+
+			//Reset vbox
 			sclReq.getChildren().clear();
+			
+			// to check if value in maxCyl is zero or positive number
 			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
 				if (isFilledA) {
+					
+					//make sure num is number to solve java.lang.NumberFormatException: For input string:""
 					int numOfReq = !numOfRequest.getText().trim().equals("")
 							? Integer.parseInt(numOfRequest.getText().trim()) : 0;
+							
+					//reset req list
 					initializeReqList(numOfReq);
+					
+					//allow user to click button that generates random values
 					btnRad.setDisable(false);
+					
+					// if user has filled in all 3 fields
 					if (isFilledB) {
+						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
+						// disable the illustrate graph button
 						btnIllustr.setDisable(true);
 					}
 				} else {
+					//disable the button that generate random values because there is no textfields in vbox
 					btnRad.setDisable(true);
 				}
 			}
@@ -140,7 +180,7 @@ public class LineGrpController {
 	}
 
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
-
+//check if the value in textfields is a zero or positive number
 		if (!(newValue.trim().matches("\\d+") || newValue.equals(""))) {
 			Platform.runLater(() -> {
 				txt.clear();
