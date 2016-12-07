@@ -78,7 +78,7 @@
 								<VBox fx:id="sclReq" alignment="TOP_LEFT" prefHeight="230.0"
 									prefWidth="239.0" spacing="20.0">
 									<padding>
-										<Insets bottom="5.0" left="5.0" right="5.0" top="25.0" />
+										<Insets bottom="5.0" left="0.0" right="0.0" top="25.0" />
 									</padding>
 								</VBox>
 							</content>
@@ -86,6 +86,12 @@
 						<JFXTextField fx:id="numOfRequest" labelFloat="true"
 							layoutX="8.0" layoutY="33.0" maxWidth="252.0" minWidth="240.0"
 							prefHeight="31.0" prefWidth="252.0" promptText="Total Number of Requests" />
+						<JFXTextField fx:id="maxCyl" labelFloat="true"
+							layoutX="9.0" layoutY="89.0" maxWidth="254.0" minWidth="242.0"
+							prefHeight="31.0" prefWidth="254.0" promptText="Maximum No of Cylinder" />
+						<JFXTextField fx:id="headStart" labelFloat="true"
+							layoutX="8.0" layoutY="146.0" maxWidth="254.0" minWidth="242.0"
+							prefHeight="31.0" prefWidth="254.0" promptText="No of Head Start" />
 						<FlowPane alignment="CENTER" columnHalignment="CENTER"
 							layoutX="10.0" layoutY="507.0" orientation="VERTICAL" prefHeight="169.0"
 							prefWidth="252.0">
@@ -120,12 +126,7 @@
 						<JFXComboBox fx:id="diskSchCombo" layoutX="11.0"
 							layoutY="450.0" prefHeight="49.0" prefWidth="250.0" />
 
-						<JFXTextField fx:id="maxCyl" labelFloat="true"
-							layoutX="9.0" layoutY="89.0" maxWidth="254.0" minWidth="242.0"
-							prefHeight="31.0" prefWidth="254.0" promptText="Maximum No of Cylinder" />
-						<JFXTextField fx:id="headStart" labelFloat="true"
-							layoutX="8.0" layoutY="146.0" maxWidth="254.0" minWidth="242.0"
-							prefHeight="31.0" prefWidth="254.0" promptText="No of Head Start" />
+
 					</children>
 					<effect>
 						<DropShadow blurType="TWO_PASS_BOX" height="2.0"

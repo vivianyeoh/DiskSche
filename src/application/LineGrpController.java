@@ -101,6 +101,7 @@ public class LineGrpController {
 			isFilledA = validateTextFields(numOfRequest, newValue);
 
 			if (isFilledA) {
+				numOfRequest.setPromptText("Total Number of Requests");
 				// make sure num is number to solve
 				// java.lang.NumberFormatException: For input string:""
 				int num = (!newValue.equals("") ? Integer.parseInt(newValue) : 0);
@@ -115,7 +116,7 @@ public class LineGrpController {
 					btnRad.setDisable(false);
 
 					// if user has filled in all 3 fields
-					if (isFilledB) {
+					if (isFilledB&&checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
@@ -127,6 +128,8 @@ public class LineGrpController {
 					// there is no textfields in vbox
 					btnRad.setDisable(true);
 				}
+			} else {
+				numOfRequest.setPromptText("Num of Req must be a number!");
 			}
 		});
 
@@ -140,6 +143,8 @@ public class LineGrpController {
 			// to check if value in maxCyl is zero or positive number
 			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
+				maxCyl.setPromptText("Maximum No of Cylinder");
+				headStart.setDisable(false);
 				if (isFilledA) {
 
 					// make sure num is number to solve
@@ -154,20 +159,23 @@ public class LineGrpController {
 					btnRad.setDisable(false);
 
 					// if user has filled in all 3 fields
-					if (isFilledB) {
+					if (isFilledB&&checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
-						headStart.setDisable(false);
+
 					} else {
 						// disable the illustrate graph button
 						btnIllustr.setDisable(true);
-						headStart.setDisable(true);
+
 					}
 				} else {
 					// disable the button that generate random values because
 					// there is no textfields in vbox
 					btnRad.setDisable(true);
+					headStart.setDisable(true);
 				}
+			} else {
+				maxCyl.setPromptText("Max No of Cylinder must be number!");
 			}
 
 		});
@@ -175,20 +183,22 @@ public class LineGrpController {
 		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
 
 			int headStartValue = !newValue.trim().equals("") ? Integer.parseInt(newValue.trim()) : 0;
-
 			int maxCylValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
 
 			// to check if value in headStart is positive number
 			isFilledB = validateTextFields(headStart, newValue);
 			if (isFilledB) {
-				if (headStartValue<maxCylValue) {
-					Platform.runLater(() -> {
-						headStart.clear();
-						maxCyl.requestFocus();
-					});
+				headStart.setPromptText("No of Head Start");
+				if (headStartValue > maxCylValue) {
+
+					headStart.requestFocus();
+					headStart.setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
+					headStart.setPromptText("Head start can't more than Max Cylinder!");
+
 				} else {
+					headStart.setPromptText("Head start");
 					// if user has filled in all 3 fields
-					if (isFilledA && isFilledC) {
+					if (isFilledA && isFilledC&&checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
@@ -196,6 +206,8 @@ public class LineGrpController {
 						btnIllustr.setDisable(true);
 					}
 				}
+			} else {
+				maxCyl.setPromptText("Head Start must be a number");
 			}
 		});
 
@@ -204,12 +216,8 @@ public class LineGrpController {
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
 		// check if the value in textfields is a zero or positive number
 		if (!(newValue.trim().matches("\\d+") || newValue.equals(""))) {
-			Platform.runLater(() -> {
-				txt.clear();
-				txt.setEffect(drawBorder());
-				txt.requestFocus();
-			});
-
+			txt.setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
+			txt.requestFocus();
 			return false;
 		} else {
 			txt.setEffect(null);
@@ -226,7 +234,7 @@ public class LineGrpController {
 		jtfReq = new JFXTextField[numOfCy];
 
 		for (int i = 0; i < numOfCy; i++) {
-
+			
 			jtfReq[i] = new JFXTextField();
 			jtfReq[i].setPromptText("Req: " + (i + 1));
 			jtfReq[i].setLabelFloat(true);
@@ -249,12 +257,29 @@ public class LineGrpController {
 					// request number that user keyed in must be smaller than
 					// maximum cylinder
 					if (fieldValue > maxValue) {
-						Platform.runLater(() -> {
-							jtfReq[j].clear();
-							maxCyl.requestFocus();
-						});
+						jtfReq[j].setPromptText("Req: " + (j + 1) + " must be smaller than max cylinder!");
+						jtfReq[j].requestFocus();
+						jtfReq[j].setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
+						addOverCount();
+						System.out.println("addOverCount: "+checkReqMax()+" overlimitCount "+overlimitCount);
+					}else{
+						jtfReq[j].setPromptText("Req: " + (j + 1));
+						jtfReq[j].setEffect(null);
+						minusOverCount();
+						System.out.println("minusOverCount: "+checkReqMax()+" overlimitCount "+overlimitCount);
 					}
 
+				} else {
+					jtfReq[j].setPromptText("Req: " + (j + 1) + " must be number!");
+				}
+				
+				
+				if (isFilledA&&isFilledB && isFilledC&&checkReqMax()) {
+					// enable user to click illustrate graph button
+					btnIllustr.setDisable(false);
+				} else {
+					// disable the illustrate graph button
+					btnIllustr.setDisable(true);
 				}
 
 			});
@@ -263,6 +288,24 @@ public class LineGrpController {
 			sclReq.getChildren().add(jtfReq[i]);
 
 		}
+	}
+	
+	public static int overlimitCount=0;
+	
+	public void addOverCount(){ 
+		overlimitCount++;
+	}
+	
+	public void minusOverCount(){
+		overlimitCount--;
+	}
+	
+	public boolean checkReqMax(){
+		int num = (!numOfRequest.getText().equals("") ? Integer.parseInt(numOfRequest.getText()) : 0);
+		if((overlimitCount+num)!=0)
+			return false;
+		else
+			return true;
 	}
 
 	// add information inside combo box
@@ -388,16 +431,16 @@ public class LineGrpController {
 	}
 
 	// draw red color outer shadow for incorrect input
-	public DropShadow drawBorder() {
-		int depth = 30;
-		DropShadow borderGlow = new DropShadow();
-		borderGlow.setOffsetY(0f);
-		borderGlow.setOffsetX(0f);
-		borderGlow.setColor(Color.RED);
-		borderGlow.setWidth(depth);
-		borderGlow.setHeight(depth);
-		return borderGlow;
-	}
+//	public DropShadow drawBorder() {
+//		int depth = 30;
+//		DropShadow borderGlow = new DropShadow();
+//		borderGlow.setOffsetY(0f);
+//		borderGlow.setOffsetX(0f);
+//		borderGlow.setColor(Color.RED);
+//		borderGlow.setWidth(depth);
+//		borderGlow.setHeight(depth);
+//		return borderGlow;
+//	}
 
 	// generate random values when button random is pressed
 	public void setValues() {
