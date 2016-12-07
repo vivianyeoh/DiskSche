@@ -116,7 +116,7 @@ public class LineGrpController {
 					btnRad.setDisable(false);
 
 					// if user has filled in all 3 fields
-					if (isFilledB&&checkReqMax()) {
+					if (isFilledB && checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
@@ -159,7 +159,7 @@ public class LineGrpController {
 					btnRad.setDisable(false);
 
 					// if user has filled in all 3 fields
-					if (isFilledB&&checkReqMax()) {
+					if (isFilledB && checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 
@@ -192,13 +192,13 @@ public class LineGrpController {
 				if (headStartValue > maxCylValue) {
 
 					headStart.requestFocus();
-					headStart.setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
+					headStart.setEffect(new javafx.scene.effect.DropShadow(1, Color.RED));
 					headStart.setPromptText("Head start can't more than Max Cylinder!");
 
 				} else {
 					headStart.setPromptText("Head start");
 					// if user has filled in all 3 fields
-					if (isFilledA && isFilledC&&checkReqMax()) {
+					if (isFilledA && isFilledC && checkReqMax()) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
 					} else {
@@ -216,7 +216,7 @@ public class LineGrpController {
 	public boolean validateTextFields(JFXTextField txt, String newValue) {
 		// check if the value in textfields is a zero or positive number
 		if (!(newValue.trim().matches("\\d+") || newValue.equals(""))) {
-			txt.setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
+			txt.setEffect(new javafx.scene.effect.DropShadow(1, Color.RED));
 			txt.requestFocus();
 			return false;
 		} else {
@@ -234,7 +234,7 @@ public class LineGrpController {
 		jtfReq = new JFXTextField[numOfCy];
 
 		for (int i = 0; i < numOfCy; i++) {
-			
+
 			jtfReq[i] = new JFXTextField();
 			jtfReq[i].setPromptText("Req: " + (i + 1));
 			jtfReq[i].setLabelFloat(true);
@@ -259,22 +259,19 @@ public class LineGrpController {
 					if (fieldValue > maxValue) {
 						jtfReq[j].setPromptText("Req: " + (j + 1) + " must be smaller than max cylinder!");
 						jtfReq[j].requestFocus();
-						jtfReq[j].setEffect(new javafx.scene.effect.DropShadow(1,Color.RED));
-						addOverCount();
-						System.out.println("addOverCount: "+checkReqMax()+" overlimitCount "+overlimitCount);
-					}else{
+						jtfReq[j].setEffect(new javafx.scene.effect.DropShadow(1, Color.RED));
+						addOverCount(j);
+					} else {
 						jtfReq[j].setPromptText("Req: " + (j + 1));
 						jtfReq[j].setEffect(null);
-						minusOverCount();
-						System.out.println("minusOverCount: "+checkReqMax()+" overlimitCount "+overlimitCount);
+						minusOverCount(j);
 					}
 
 				} else {
 					jtfReq[j].setPromptText("Req: " + (j + 1) + " must be number!");
 				}
-				
-				
-				if (isFilledA&&isFilledB && isFilledC&&checkReqMax()) {
+
+				if (isFilledA && isFilledB && isFilledC && checkReqMax()) {
 					// enable user to click illustrate graph button
 					btnIllustr.setDisable(false);
 				} else {
@@ -289,20 +286,35 @@ public class LineGrpController {
 
 		}
 	}
-	
-	public static int overlimitCount=0;
-	
-	public void addOverCount(){ 
-		overlimitCount++;
+
+	public static int overlimitCount = 0;
+	public ArrayList<Integer> list = new ArrayList<>();
+
+	public void addOverCount(int j) {
+		boolean notFound = true;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) == j) {
+				notFound = false;
+			}
+		}
+		if (notFound) {
+			list.add(j);
+			overlimitCount++;
+		}
 	}
-	
-	public void minusOverCount(){
-		overlimitCount--;
+
+	public void minusOverCount(int j) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) == j) {
+				list.remove(i);
+				overlimitCount--;
+			}
+		}
 	}
-	
-	public boolean checkReqMax(){
+
+	public boolean checkReqMax() {
 		int num = (!numOfRequest.getText().equals("") ? Integer.parseInt(numOfRequest.getText()) : 0);
-		if((overlimitCount+num)!=0)
+		if (overlimitCount != 0)
 			return false;
 		else
 			return true;
@@ -429,18 +441,6 @@ public class LineGrpController {
 		fldHeadMove.setText(0 + "");
 		lineGrp.getData().clear();
 	}
-
-	// draw red color outer shadow for incorrect input
-//	public DropShadow drawBorder() {
-//		int depth = 30;
-//		DropShadow borderGlow = new DropShadow();
-//		borderGlow.setOffsetY(0f);
-//		borderGlow.setOffsetX(0f);
-//		borderGlow.setColor(Color.RED);
-//		borderGlow.setWidth(depth);
-//		borderGlow.setHeight(depth);
-//		return borderGlow;
-//	}
 
 	// generate random values when button random is pressed
 	public void setValues() {
