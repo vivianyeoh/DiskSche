@@ -13,7 +13,7 @@ public class CScan extends ScheAlgorithm {
 	private int maxIndex = 1;
 
 	public CScan(ArrayList<Integer> reqList, int headStart, int maxValue) {
-		super(reqList, headStart, maxValue);
+		super(reqList, headStart, maxValue-1);
 	}
 
 	public void arrangeList() {
