@@ -46,10 +46,7 @@ public class CLook extends ScheAlgorithm {
 				break;
 			}
 		}
-		
-		
-		System.out.println("positionOfHeadStart: "+positionOfHeadStart);
-		
+
 		// let headstart be the first dot in toBeArranged list
 		toBeArranged.add(headStart);
 		toStart = Math.abs(headStart - reqList.get(reqList.size() - 1)) > Math.abs(headStart - reqList.get(0));
@@ -65,7 +62,6 @@ public class CLook extends ScheAlgorithm {
 			}
 			// follow by biggest number
 			for (int i = reqList.size() - 1; i >=positionOfHeadStart; i--) {
-				System.out.println(" Nearer to zero i: "+i+" reqList.get(i)"+reqList.get(i));
 				toBeArranged.add(reqList.get(i));
 			}
 		} else {
@@ -104,20 +100,12 @@ public class CLook extends ScheAlgorithm {
 				}
 			}
 			maxIndex = minIndex + 1;
-			System.out.println("maxIndex" + maxIndex);
-			System.out.println("minIndex" + minIndex);
 			for (int i = 0; i < minIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
-				System.out.println(" direction to start i: " + i + " " + getArrangedList().get(i) + " - "
-						+ getArrangedList().get(i + 1) + " = "
-						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
-			}
+				}
 			for (int i = maxIndex; i < getArrangedList().size() - 1; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
-				System.out.println(" direction to start i: " + i + " " + getArrangedList().get(i) + " - "
-						+ getArrangedList().get(i + 1) + " = "
-						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
-			}
+				}
 		} else {
 			// direction to end
 			// Nearer to end, direction is to end, smallest value after larger
@@ -128,20 +116,13 @@ public class CLook extends ScheAlgorithm {
 				}
 			}
 			minIndex = maxIndex + 1;
-			System.out.println("maxIndex" + maxIndex);
-			System.out.println("minIndex" + minIndex);
+			
 			for (int i = 0; i < maxIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
-				System.out.println(" direction to end i: " + i + " " + getArrangedList().get(i) + " - "
-						+ getArrangedList().get(i + 1) + " = "
-						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
-			}
+				}
 			for (int i = minIndex; i < getArrangedList().size() - 1; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
-				System.out.println(" direction to end i: " + i + " " + getArrangedList().get(i) + " - "
-						+ getArrangedList().get(i + 1) + " = "
-						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
-			}
+				}
 		}
 
 		return total;
