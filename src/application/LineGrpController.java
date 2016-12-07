@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -30,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -60,6 +62,11 @@ public class LineGrpController {
 	private JFXTextArea fldHeadMove;
 	@FXML
 	private JFXTextArea fldSequence;
+	@FXML
+	private JFXTextField weightPtg;
+	@FXML
+	private ProgressBar progressWeight;
+
 	private JFXTextField[] jtfReq;
 	public boolean isFilledA, isFilledB, isFilledC;
 	private final static Logger LOGGER = Logger.getLogger(LineGrpController.class.getName());
@@ -68,7 +75,7 @@ public class LineGrpController {
 		disableButtons();
 		initializeCylinderReqField();
 		initializeComboBox();
-
+		progressWeight.setStyle("-fx-accent: #e51c23");
 		yAxis.setLabel("Cylinder");
 		xAxis.setLabel("Time Unit");
 
@@ -108,7 +115,8 @@ public class LineGrpController {
 
 				// if user has typed maximum cylinder
 				if (isFilledC) {
-
+					//allow user to key in headstart
+					headStart.setDisable(false);
 					// add request textfield in sclReq(vbox)
 					initializeReqList(num);
 
@@ -127,6 +135,9 @@ public class LineGrpController {
 					// disable the button that generate random values because
 					// there is no textfields in vbox
 					btnRad.setDisable(true);
+					
+					//force user to key in headstart
+					headStart.setDisable(true);
 				}
 			} else {
 				numOfRequest.setPromptText("Num of Req must be a number!");
@@ -346,6 +357,13 @@ public class LineGrpController {
 		return reqList;
 	}
 
+	public void updateProgressBar(int totalheadmovement, int numberofrequest, int maxCylinder) {
+
+		float value = (float)totalheadmovement / (float)numberofrequest/ (float)maxCylinder * 100;
+		weightPtg.setText(String.format("%.2f",value)+"%");
+		progressWeight.setProgress(value/100);
+	}
+
 	// when button illustrate graoh is pressed, generate graph
 	public void submitReq() {
 		clearGraph();
@@ -403,12 +421,17 @@ public class LineGrpController {
 				series.getData().add(new XYChart.Data(i, algoList.get(i)));
 			}
 			lineGrp.getData().add(series);
-
+			
+		
 			// set text of sequence field
 			fldSequence.setText(printSequence(algoList));
 
 			// set text of total head movement
-			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
+			fldHeadMove.setText(alg.getTtlHeadMovement() + "");	
+			
+			//set value of progress bar
+			updateProgressBar(alg.getTtlHeadMovement(), num+1, maxValue);
+			
 		}
 	}
 
@@ -437,6 +460,8 @@ public class LineGrpController {
 
 	// clear all data on graph
 	public void clearGraph() {
+		weightPtg.setText(0 + "");
+		progressWeight.setProgress(0);
 		fldSequence.setText(0 + "");
 		fldHeadMove.setText(0 + "");
 		lineGrp.getData().clear();

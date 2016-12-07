@@ -22,6 +22,7 @@ AnchorPane, SplitPane, VBox{
 	 -fx-background-color: #FFFFFF;
 }
 
-JFXButton,JFXTextField, Label, JFXComboBox{
+JFXButton,JFXTextField,JFXTextArea, JFXComboBox{
 	 -fx-font: 15.0px Calibri;
 }
+
