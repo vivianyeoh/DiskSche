@@ -10,55 +10,53 @@ import java.util.Collections;
 
 public class CLook extends ScheAlgorithm {
 
-	private int minIndex = 1;
-	private int maxIndex = 1;
+	public boolean toStart; // direction to 0
 
 	public CLook(ArrayList<Integer> reqList, int headStart) {
 		super(reqList, headStart);
-		// get Max and min value
-		for (int i = 1; i < getArrangedList().size(); i++) {
-			if (getArrangedList().get(i) > getArrangedList().get(maxIndex))
-				maxIndex = i;
-			if (getArrangedList().get(i) < getArrangedList().get(minIndex))
-				minIndex = i;
-		}
 
 	}
 
 	public void arrangeList() {
+		Collections.sort(reqList);
 
 		int positionOfHeadStart = 0;
 		// find the position of headstart
 		for (int i = 0; i < reqList.size(); i++) {
+			
+			// positionofheadstart is first number bigger than or equal to headstart
 			if (reqList.get(i) >= headStart) {
+				
 				positionOfHeadStart = i;
 				break;
 			}
 		}
 		
-		//let headstart be the first dot in toBeArranged list
+		// let headstart be the first dot in toBeArranged list
 		toBeArranged.add(headStart);
+		toStart = Math.abs(headStart - reqList.get(reqList.size() - 1)) > Math.abs(headStart - reqList.get(0));
 
-		if (minIndex > maxIndex) {
-			// Nearer to end, direction is to end, smallest value after larger
-			// value
-			//start from first number that is bigger than or equal to headstart
-			for (int i = positionOfHeadStart; i < reqList.size(); i++) {
+		if (toStart) {
+
+			// Nearer to zero, direction is to start, largest value after
+			// smallest value
+			// start from first number that is smaller than headstart
+			for (int i = positionOfHeadStart; i >= 0; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
-			//follow by 0 and following number 
-			for (int i = 0; i < positionOfHeadStart; i++) {
+			// follow by biggest number
+			for (int i = reqList.size() - 1; i >positionOfHeadStart; i--) {
 				toBeArranged.add(reqList.get(i));
 			}
 		} else {
-			// Nearer to zero, direction is to start, largest value after
-			// smallest value
-			//start from first number that is smaller than headstart
-			for (int i = positionOfHeadStart - 1; i >= 0; i--) {
+			// Nearer to end, direction is to end, smallest value after larger
+			// value
+			// start from first number that is bigger than or equal to headstart
+			for (int i = positionOfHeadStart; i < reqList.size(); i++) {
 				toBeArranged.add(reqList.get(i));
 			}
-			//follow by biggest number
-			for (int i = reqList.size() - 1; i >= positionOfHeadStart; i--) {
+			// follow by 0 and following number
+			for (int i = 0; i < positionOfHeadStart; i++) {
 				toBeArranged.add(reqList.get(i));
 			}
 		}
@@ -68,24 +66,55 @@ public class CLook extends ScheAlgorithm {
 	@Override
 	public int getTtlHeadMovement() {
 		int total = 0;
+		// not comparing headstart
+		int maxIndex = 1, minIndex;
 
-		// direction to end
-		//skip the addition between maxIndex and minIndex because huge jump doesn't count as a head movement in CLook
-		if (minIndex > maxIndex) {
-			for (int i = 0; i < maxIndex; i++) {
-				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
+		// get Max and min value
+		for (int i = 1; i < getArrangedList().size(); i++) {
+			if (getArrangedList().get(i) > getArrangedList().get(maxIndex)) {
+				maxIndex = i;
 			}
-			for (int i = minIndex; i < getArrangedList().size() - 1; i++) {
-				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
-			}
-		} // direction to start
-		else {
+		}
 
+		// direction to start
+		// Nearer to zero, direction is to start, largest value after smallest
+		// value
+		// skip the addition between maxIndex and minIndex because huge jump
+		// doesn't count as a head movement in CLook
+		if (toStart) {
+			minIndex = maxIndex - 1;
+			System.out.println("maxIndex" + maxIndex);
+			System.out.println("minIndex" + minIndex);
 			for (int i = 0; i < minIndex; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
+				System.out.println(" direction to start i: " + i + " " + getArrangedList().get(i) + " - "
+						+ getArrangedList().get(i + 1) + " = "
+						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
 			}
 			for (int i = maxIndex; i < getArrangedList().size() - 1; i++) {
 				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
+				System.out.println(" direction to start i: " + i + " " + getArrangedList().get(i) + " - "
+						+ getArrangedList().get(i + 1) + " = "
+						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
+			}
+		} else {
+			// direction to end
+			// Nearer to end, direction is to end, smallest value after larger
+			// value
+			minIndex = maxIndex + 1;
+			System.out.println("maxIndex" + maxIndex);
+			System.out.println("minIndex" + minIndex);
+			for (int i = 0; i < maxIndex; i++) {
+				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
+				System.out.println(" direction to end i: " + i + " " + getArrangedList().get(i) + " - "
+						+ getArrangedList().get(i + 1) + " = "
+						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
+			}
+			for (int i = minIndex; i < getArrangedList().size() - 1; i++) {
+				total += Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1));
+				System.out.println(" direction to end i: " + i + " " + getArrangedList().get(i) + " - "
+						+ getArrangedList().get(i + 1) + " = "
+						+ Math.abs(getArrangedList().get(i) - getArrangedList().get(i + 1)));
 			}
 		}
 
