@@ -115,7 +115,7 @@ public class LineGrpController {
 
 				// if user has typed maximum cylinder
 				if (isFilledC) {
-					//allow user to key in headstart
+					// allow user to key in headstart
 					headStart.setDisable(false);
 					// add request textfield in sclReq(vbox)
 					initializeReqList(num);
@@ -135,8 +135,8 @@ public class LineGrpController {
 					// disable the button that generate random values because
 					// there is no textfields in vbox
 					btnRad.setDisable(true);
-					
-					//force user to key in headstart
+
+					// force user to key in headstart
 					headStart.setDisable(true);
 				}
 			} else {
@@ -201,24 +201,23 @@ public class LineGrpController {
 			if (isFilledB) {
 				headStart.setPromptText("No of Head Start");
 				if (headStartValue > maxCylValue) {
-
+					isFilledB = false;
 					headStart.requestFocus();
 					headStart.setEffect(new javafx.scene.effect.DropShadow(1, Color.RED));
 					headStart.setPromptText("Head start can't more than Max Cylinder!");
-
-				} else {
-					headStart.setPromptText("Head start");
-					// if user has filled in all 3 fields
-					if (isFilledA && isFilledC && checkReqMax()) {
-						// enable user to click illustrate graph button
-						btnIllustr.setDisable(false);
-					} else {
-						// disable the illustrate graph button
-						btnIllustr.setDisable(true);
-					}
 				}
+
 			} else {
 				maxCyl.setPromptText("Head Start must be a number");
+			}
+			
+			// if user has filled in all 3 fields
+			if (isFilledA && isFilledB && isFilledC && checkReqMax()) {
+				// enable user to click illustrate graph button
+				btnIllustr.setDisable(false);
+			} else {
+				// disable the illustrate graph button
+				btnIllustr.setDisable(true);
 			}
 		});
 
@@ -359,9 +358,9 @@ public class LineGrpController {
 
 	public void updateProgressBar(int totalheadmovement, int numberofrequest, int maxCylinder) {
 
-		float value = (float)totalheadmovement / (float)numberofrequest/ (float)maxCylinder * 100;
-		weightPtg.setText(String.format("%.2f",value)+"%");
-		progressWeight.setProgress(value/100);
+		float value = (float) totalheadmovement / (float) numberofrequest / (float) maxCylinder * 100;
+		weightPtg.setText(String.format("%.2f", value) + "%");
+		progressWeight.setProgress(value / 100);
 	}
 
 	// when button illustrate graoh is pressed, generate graph
@@ -421,17 +420,16 @@ public class LineGrpController {
 				series.getData().add(new XYChart.Data(i, algoList.get(i)));
 			}
 			lineGrp.getData().add(series);
-			
-		
+
 			// set text of sequence field
 			fldSequence.setText(printSequence(algoList));
 
 			// set text of total head movement
-			fldHeadMove.setText(alg.getTtlHeadMovement() + "");	
-			
-			//set value of progress bar
-			updateProgressBar(alg.getTtlHeadMovement(), num+1, maxValue);
-			
+			fldHeadMove.setText(alg.getTtlHeadMovement() + "");
+
+			// set value of progress bar
+			updateProgressBar(alg.getTtlHeadMovement(), num + 1, maxValue);
+
 		}
 	}
 
