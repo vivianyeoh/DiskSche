@@ -3,7 +3,6 @@
  * @Date 6 Dec 2016
  */
 
-
 package application;
 
 import javafx.scene.effect.DropShadow;
@@ -131,21 +130,6 @@ public class LineGrpController {
 			}
 		});
 
-		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
-			// to check if value in headStart is positive number
-			isFilledB = validateTextFields(headStart, newValue);
-			if (isFilledB) {
-				// if user has filled in all 3 fields
-				if (isFilledA && isFilledC) {
-					// enable user to click illustrate graph button
-					btnIllustr.setDisable(false);
-				} else {
-					// disable the illustrate graph button
-					btnIllustr.setDisable(true);
-				}
-			}
-		});
-
 		maxCyl.textProperty().addListener((observable, oldValue, newValue) -> {
 			// Reset graph
 			clearGraph();
@@ -173,9 +157,11 @@ public class LineGrpController {
 					if (isFilledB) {
 						// enable user to click illustrate graph button
 						btnIllustr.setDisable(false);
+						headStart.setDisable(false);
 					} else {
 						// disable the illustrate graph button
 						btnIllustr.setDisable(true);
+						headStart.setDisable(true);
 					}
 				} else {
 					// disable the button that generate random values because
@@ -184,6 +170,33 @@ public class LineGrpController {
 				}
 			}
 
+		});
+
+		headStart.textProperty().addListener((observable, oldValue, newValue) -> {
+
+			int headStartValue = !newValue.trim().equals("") ? Integer.parseInt(newValue.trim()) : 0;
+
+			int maxCylValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
+
+			// to check if value in headStart is positive number
+			isFilledB = validateTextFields(headStart, newValue);
+			if (isFilledB) {
+				if (headStartValue<maxCylValue) {
+					Platform.runLater(() -> {
+						headStart.clear();
+						maxCyl.requestFocus();
+					});
+				} else {
+					// if user has filled in all 3 fields
+					if (isFilledA && isFilledC) {
+						// enable user to click illustrate graph button
+						btnIllustr.setDisable(false);
+					} else {
+						// disable the illustrate graph button
+						btnIllustr.setDisable(true);
+					}
+				}
+			}
 		});
 
 	}
@@ -238,7 +251,6 @@ public class LineGrpController {
 					if (fieldValue > maxValue) {
 						Platform.runLater(() -> {
 							jtfReq[j].clear();
-							jtfReq[j].setEffect(drawBorder());
 							maxCyl.requestFocus();
 						});
 					}
@@ -265,6 +277,7 @@ public class LineGrpController {
 	public void disableButtons() {
 		btnIllustr.setDisable(true);
 		btnRad.setDisable(true);
+		headStart.setDisable(true);
 	}
 
 	// create an arraylist with request numbers that user keyed in
@@ -344,7 +357,7 @@ public class LineGrpController {
 		}
 	}
 
-	//Create a string that contains data from algolist
+	// Create a string that contains data from algolist
 	public String printSequence(ArrayList<Integer> algoList) {
 		String sequence = "";
 		for (int i = 0; i < algoList.size(); i++) {
@@ -357,7 +370,7 @@ public class LineGrpController {
 		return sequence;
 	}
 
-	//clear everything on graph
+	// clear everything on graph
 	public void clear() {
 		clearGraph();
 		sclReq.getChildren().clear();
@@ -367,14 +380,14 @@ public class LineGrpController {
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
 	}
 
-	//clear all data on graph
+	// clear all data on graph
 	public void clearGraph() {
 		fldSequence.setText(0 + "");
 		fldHeadMove.setText(0 + "");
 		lineGrp.getData().clear();
 	}
 
-	//draw red color outer shadow for incorrect input
+	// draw red color outer shadow for incorrect input
 	public DropShadow drawBorder() {
 		int depth = 30;
 		DropShadow borderGlow = new DropShadow();
@@ -386,7 +399,7 @@ public class LineGrpController {
 		return borderGlow;
 	}
 
-	//generate random values when button random is pressed
+	// generate random values when button random is pressed
 	public void setValues() {
 		int numOfReq = !numOfRequest.getText().trim().equals("") ? Integer.parseInt(numOfRequest.getText().trim()) : 0;
 		int maxValue = !maxCyl.getText().trim().equals("") ? Integer.parseInt(maxCyl.getText().trim()) : 0;
