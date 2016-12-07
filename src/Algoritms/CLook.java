@@ -42,7 +42,6 @@ public class CLook extends ScheAlgorithm {
 		for (int i = 0; i < reqList.size(); i++) {
 			// positionofheadstart is first number bigger than or equal to headstart
 			if (reqList.get(i) >= headStart) {
-				
 				positionOfMaxHeadStart = i;
 				break;
 			}
@@ -60,12 +59,12 @@ public class CLook extends ScheAlgorithm {
 			// Nearer to zero, direction is to start, largest value after
 			// smallest value
 			// start from first number that is smaller than headstart
-			for (int i = positionOfHeadStart; i >= 0; i--) {
+			for (int i = positionOfHeadStart-1; i >= 0; i--) {
 				System.out.println(" Nearer to zero i: "+i+" reqList.get(i)"+reqList.get(i));
 				toBeArranged.add(reqList.get(i));
 			}
 			// follow by biggest number
-			for (int i = reqList.size() - 1; i >positionOfHeadStart; i--) {
+			for (int i = reqList.size() - 1; i >=positionOfHeadStart; i--) {
 				System.out.println(" Nearer to zero i: "+i+" reqList.get(i)"+reqList.get(i));
 				toBeArranged.add(reqList.get(i));
 			}
