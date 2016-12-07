@@ -57,7 +57,6 @@ public class CLook extends ScheAlgorithm {
 			// smallest value
 			// start from first number that is smaller than headstart
 			for (int i = positionOfHeadStart-1; i >= 0; i--) {
-				System.out.println(" Nearer to zero i: "+i+" reqList.get(i)"+reqList.get(i));
 				toBeArranged.add(reqList.get(i));
 			}
 			// follow by biggest number
