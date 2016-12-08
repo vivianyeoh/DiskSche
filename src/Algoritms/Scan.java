@@ -12,6 +12,7 @@ public class Scan extends ScheAlgorithm {
 
 	private int minIndex = 0;
 	private int maxIndex = 1;
+	
 	public Scan(ArrayList<Integer> reqList, int headStart, int maxValue) {
 		super(reqList, headStart, maxValue);
 			//get Max and min value

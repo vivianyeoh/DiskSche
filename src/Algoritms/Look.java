@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class Look extends ScheAlgorithm {
 
-	public boolean toStart; // direction to 0
+	private boolean toStart; // direction to 0
 
 	public Look(ArrayList<Integer> reqList, int headStart) {
 		super(reqList, headStart);

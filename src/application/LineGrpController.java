@@ -5,8 +5,6 @@
 
 package application;
 
-import javafx.scene.effect.DropShadow;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -14,7 +12,6 @@ import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -27,7 +24,6 @@ import Algoritms.Scan;
 import Algoritms.ScheAlgorithm;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -72,7 +68,8 @@ public class LineGrpController {
 	private final static Logger LOGGER = Logger.getLogger(LineGrpController.class.getName());
 
 	public void initialize() {
-		disableButtons();
+
+		btnIllustr.setDisable(true);
 		initializeCylinderReqField();
 		initializeComboBox();
 		progressWeight.setStyle("-fx-accent: #e51c23");
@@ -115,8 +112,7 @@ public class LineGrpController {
 
 				// if user has typed maximum cylinder
 				if (isFilledC) {
-					// allow user to key in headstart
-					headStart.setDisable(false);
+
 					// add request textfield in sclReq(vbox)
 					initializeReqList(num);
 
@@ -131,14 +127,7 @@ public class LineGrpController {
 						// disable the illustrate graph button
 						btnIllustr.setDisable(true);
 					}
-				} else {
-					// disable the button that generate random values because
-					// there is no textfields in vbox
-					btnRad.setDisable(true);
-
-					// force user to key in headstart
-					headStart.setDisable(true);
-				}
+				} 
 			} else {
 				numOfRequest.setPromptText("Num of Req must be a number!");
 			}
@@ -155,7 +144,6 @@ public class LineGrpController {
 			isFilledC = validateTextFields(maxCyl, newValue);
 			if (isFilledC) {
 				maxCyl.setPromptText("Maximum No of Cylinder");
-				headStart.setDisable(false);
 				if (isFilledA) {
 
 					// make sure num is number to solve
@@ -179,12 +167,7 @@ public class LineGrpController {
 						btnIllustr.setDisable(true);
 
 					}
-				} else {
-					// disable the button that generate random values because
-					// there is no textfields in vbox
-					btnRad.setDisable(true);
-					headStart.setDisable(true);
-				}
+				} 
 			} else {
 				maxCyl.setPromptText("Max No of Cylinder must be number!");
 			}
@@ -323,7 +306,6 @@ public class LineGrpController {
 	}
 
 	public boolean checkReqMax() {
-		int num = (!numOfRequest.getText().equals("") ? Integer.parseInt(numOfRequest.getText()) : 0);
 		if (overlimitCount != 0)
 			return false;
 		else
@@ -335,14 +317,6 @@ public class LineGrpController {
 		diskSchCombo.getItems().addAll("First-Come/First-Served (FCFS)", "Shortest Seek Time First (SSTF)", "SCAN",
 				"CSCAN", "LOOK", "CLOOK");
 		diskSchCombo.setValue("First-Come/First-Served (FCFS)");
-	}
-
-	// disable buttons to prevent user pressed them before user keyed in
-	// everything
-	public void disableButtons() {
-		btnIllustr.setDisable(true);
-		btnRad.setDisable(true);
-		headStart.setDisable(true);
 	}
 
 	// create an arraylist with request numbers that user keyed in
@@ -448,6 +422,7 @@ public class LineGrpController {
 
 	// clear everything on graph
 	public void clear() {
+		btnIllustr.setDisable(true);
 		clearGraph();
 		sclReq.getChildren().clear();
 		numOfRequest.setText(0 + "");
